@@ -6,12 +6,13 @@ import { AiFillPieChart } from "react-icons/ai"
 import { TfiAnnouncement } from "react-icons/tfi"
 import { AiOutlineContacts } from "react-icons/ai"
 import { CiSettings } from "react-icons/ci"
-import { SiOpenaccess } from "react-icons/si"
+// import { SiOpenaccess } from "react-icons/si"
 import { CgProfile } from "react-icons/cg"
+import { FcAddressBook } from "react-icons/fc"
 import Logo from "../assets/images/logo.svg"
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const location = useLocation()
 
   const Menus = [
@@ -20,20 +21,20 @@ const Sidebar = () => {
     { title: "Contact", path: "/contact", src: <AiOutlineContacts /> },
     { title: "Setting", path: "/setting", src: <CiSettings /> },
     { title: "Profile", path: "/profile", src: <CgProfile /> },
-    { title: "Signin", path: "/login", src: <SiOpenaccess />, gap: "true" },
+    // { title: "Signin", path: "/login", src: <SiOpenaccess />, gap: "true" },
   ]
 
   return (
     <>
       <div
         className={`${
-          open ? "w-60" : "w-fit"
+          open ? "w-56" : "w-fit"
         } hidden sm:block relative h-screen duration-300 bg-gray-100 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
       >
         <BsArrowLeftCircle
           className={`${
             !open && "rotate-180"
-          } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
+          } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer top-9 -right-0 dark:fill-gray-400 dark:bg-gray-800`}
           onClick={() => setOpen(!open)}
         />
         <Link to="/">
@@ -47,12 +48,12 @@ const Sidebar = () => {
           </div>
         </Link>
 
-        <ul className="pt-6">
+        <ul className="pt-4">
           {Menus.map((menu, index) => (
             <Link to={menu.path} key={index}>
               <li
-                className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
-                        ${menu.gap ? "mt-9" : "mt-2"} ${
+                className={`flex items-center gap-x-6 p-2 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+                        ${menu.gap ? "mt-3" : "mt-1"} ${
                   location.pathname === menu.path &&
                   "bg-gray-200 dark:bg-gray-700"
                 }`}
@@ -69,6 +70,15 @@ const Sidebar = () => {
             </Link>
           ))}
         </ul>
+
+        <p className="text-black dark:text-white pt-4">Inboxes</p>
+        <p className="text-black dark:text-white pt-4">Your Team</p>
+        <div className="flex items-center font-normal rounded-lg p-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700">
+          <span className="text-2xl">
+            <FcAddressBook />
+          </span>
+          <span className="text-purple-800">Invite Your Team</span>
+        </div>
       </div>
     </>
   )
