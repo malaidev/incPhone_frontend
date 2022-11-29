@@ -5,6 +5,7 @@ import { BsArrowLeftCircle } from "react-icons/bs"
 import { AiFillPieChart } from "react-icons/ai"
 import { TfiAnnouncement } from "react-icons/tfi"
 import { AiOutlineContacts } from "react-icons/ai"
+import { CiSettings } from "react-icons/ci"
 import { SiOpenaccess } from "react-icons/si"
 import { CgProfile } from "react-icons/cg"
 import Logo from "../assets/images/logo.svg"
@@ -17,6 +18,7 @@ const Sidebar = () => {
     { title: "Dashboard", path: "/dashboard", src: <AiFillPieChart /> },
     { title: "Activity", path: "/activity", src: <TfiAnnouncement /> },
     { title: "Contact", path: "/contact", src: <AiOutlineContacts /> },
+    { title: "Setting", path: "/setting", src: <CiSettings /> },
     { title: "Profile", path: "/profile", src: <CgProfile /> },
     { title: "Signin", path: "/login", src: <SiOpenaccess />, gap: "true" },
   ]
