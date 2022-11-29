@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom"
 
 import { BsArrowLeftCircle } from "react-icons/bs"
 import { AiFillPieChart } from "react-icons/ai"
-import { SiFuturelearn } from "react-icons/si"
+import { TfiAnnouncement } from "react-icons/tfi"
+import { AiOutlineContacts } from "react-icons/ai"
 import { SiOpenaccess } from "react-icons/si"
 import { CgProfile } from "react-icons/cg"
 import Logo from "../assets/images/logo.svg"
@@ -14,7 +15,8 @@ const Sidebar = () => {
 
   const Menus = [
     { title: "Dashboard", path: "/dashboard", src: <AiFillPieChart /> },
-    { title: "Course", path: "/course", src: <SiFuturelearn /> },
+    { title: "Activity", path: "/activity", src: <TfiAnnouncement /> },
+    { title: "Contact", path: "/contact", src: <AiOutlineContacts /> },
     { title: "Profile", path: "/profile", src: <CgProfile /> },
     { title: "Signin", path: "/login", src: <SiOpenaccess />, gap: "true" },
   ]
@@ -37,7 +39,7 @@ const Sidebar = () => {
             <img src={Logo} alt="" className="pl-2" />
             {open && (
               <span className="text-xl font-medium whitespace-nowrap dark:text-white">
-                Goal Quest
+                IncPhone
               </span>
             )}
           </div>

@@ -1,11 +1,11 @@
 import Layout from "./components/Layout"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-import Home from "./pages/Home"
-import Dashboard from "./pages/Dashboard"
-import Course from "./pages/Course"
-import Profile from "./pages/Profile"
-import Login from "./pages/Login"
+import { Home } from "./pages/Home"
+import { Dashboard } from "./pages/Dashboard"
+import { Activity } from "./pages/Activity"
+import { Profile } from "./pages/Profile"
+import { Login } from "./pages/Login"
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/course" element={<Course />} />
+          <Route path="/activity" element={<Activity />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
         </Routes>
