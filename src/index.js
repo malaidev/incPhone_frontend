@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import "./index.css"
 import App from "./App"
-import { ThemeProvider } from "./components/ThemeContext"
+import { ThemeProvider } from "./context/ThemeContext"
 import Background from "./components/Background"
 import reportWebVitals from "./reportWebVitals"
 

@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link, useLocation } from "react-router-dom"
 
-import { BsArrowLeftCircle } from "react-icons/bs"
+// import { BsArrowLeftCircle } from "react-icons/bs"
 import { AiFillPieChart } from "react-icons/ai"
 import { TfiAnnouncement } from "react-icons/tfi"
 import { AiOutlineContacts } from "react-icons/ai"
@@ -12,7 +12,8 @@ import { FcAddressBook } from "react-icons/fc"
 import Logo from "../assets/images/logo.svg"
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true)
+  // const [open, setOpen] = useState(true)
+  const open = true
   const location = useLocation()
 
   const Menus = [
@@ -31,12 +32,12 @@ const Sidebar = () => {
           open ? "w-56" : "w-fit"
         } hidden sm:block relative h-screen duration-300 bg-gray-100 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
       >
-        <BsArrowLeftCircle
+        {/* <BsArrowLeftCircle
           className={`${
             !open && "rotate-180"
           } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer top-9 -right-0 dark:fill-gray-400 dark:bg-gray-800`}
           onClick={() => setOpen(!open)}
-        />
+        /> */}
         <Link to="/">
           <div className={`flex ${open && "gap-x-4"} items-center`}>
             <img src={Logo} alt="" className="pl-2" />
@@ -52,7 +53,7 @@ const Sidebar = () => {
           {Menus.map((menu, index) => (
             <Link to={menu.path} key={index}>
               <li
-                className={`flex items-center gap-x-6 p-2 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+                className={`flex items-center gap-x-6 p-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
                         ${menu.gap ? "mt-3" : "mt-1"} ${
                   location.pathname === menu.path &&
                   "bg-gray-200 dark:bg-gray-700"
