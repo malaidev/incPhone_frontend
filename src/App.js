@@ -1,13 +1,13 @@
 import Layout from "./components/Layout"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-import { Home } from "./pages/Home/Home"
-import { Dashboard } from "./pages/Dashboard/Dashboard"
-import { Activity } from "./pages/Activity/Activity"
-import { Contact } from "./pages/Contact/Contact"
-import { Profile } from "./pages/Profile/Profile"
-import { Setting } from "./pages/Setting/Setting"
-import { Login } from "./pages/Login/Login"
+import { Home } from "./pages/Home"
+import { Dashboard } from "./pages/Dashboard"
+import { Activity } from "./pages/Activity"
+import { Contact } from "./pages/Contact"
+import { Profile } from "./pages/Profile"
+import { Setting } from "./pages/Setting"
+import { Login } from "./pages/Login"
 
 function App() {
   return (
