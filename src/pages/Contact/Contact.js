@@ -2,6 +2,7 @@ import React from "react"
 import Navbar from "../../components/Navbar"
 import { AiOutlineSearch } from "react-icons/ai"
 import { Images } from "../../assets"
+import "./index.css"
 
 export const Contact = () => {
   return (
@@ -12,8 +13,9 @@ export const Contact = () => {
           <div className="my-2 flex items-center">
             <input
               type="checkbox"
-              className="accent-purple-800 checked:bg-gray-800 dark:bg-white mr-3"
+              className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
             />
+            <label></label>
             <span className="text-black dark:text-white mr-3">
               <AiOutlineSearch />
             </span>
@@ -24,11 +26,12 @@ export const Contact = () => {
               className="w-full bg-white dark:bg-gray-800 outline-none text-black dark:text-white"
             />
           </div>
-          <div className="mb-2 flex items-center">
+          <div className="my-2 flex items-center">
             <input
               type="checkbox"
-              className="accent-purple-800 checked:bg-gray-800 dark:bg-white mr-3"
+              className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
             />
+            <label></label>
             <span className="text-black dark:text-white mr-3">
               <img alt="Logo" src={Images.Logo} width="24" height="24" />
             </span>
