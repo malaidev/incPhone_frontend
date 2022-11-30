@@ -1,5 +1,11 @@
 import React from "react"
+import Navbar from "../components/Navbar"
 
 export const Profile = () => {
-  return <div>Profile</div>
+  return (
+    <div>
+      <Navbar />
+      <div className="text-black dark:text-white">Profile</div>
+    </div>
+  )
 }
