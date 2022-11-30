@@ -1,7 +1,7 @@
 import React from "react"
-import Navbar from "../components/Navbar"
+import Navbar from "../../components/Navbar"
 import { AiOutlineSearch } from "react-icons/ai"
-import { Images } from "../assets"
+import { Images } from "../../assets"
 
 export const Contact = () => {
   return (
