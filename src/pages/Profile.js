@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar"
 export const Profile = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar name="Profile" />
       <div className="text-black dark:text-white">Profile</div>
     </div>
   )
