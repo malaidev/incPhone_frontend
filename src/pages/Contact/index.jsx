@@ -22,7 +22,6 @@ export const Contact = () => {
             <input
               type="text"
               placeholder="Search"
-              autoFocus
               className="w-full bg-white dark:bg-gray-800 outline-none text-black dark:text-white"
             />
           </div>
