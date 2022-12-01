@@ -1,10 +1,27 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 import Navbar from "../../components/Navbar"
 import { AiOutlineSearch } from "react-icons/ai"
-import { Images } from "../../assets"
+import { ContactInfo } from "./ContactInfo"
 import "./index.css"
 
 export const Contact = () => {
+  const [contacts, setContacts] = useState([])
+  const [selectedIndex, setSelectedIndex] = useState()
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://addressbook.services.incphone.com/api/addressbooks/771967dd-b03e-4a0f-b527-17ab71c6735a/contacts"
+      )
+      .then((res) => {
+        setContacts(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
   return (
     <div className="grid grid-cols-3 min-h-full">
       <div className="col-span-2 border-r border-gray-300 dark:border-gray-600">
@@ -25,20 +42,52 @@ export const Contact = () => {
               className="w-full bg-white dark:bg-gray-800 outline-none text-black dark:text-white"
             />
           </div>
-          <div className="my-2 flex items-center">
-            <input
-              type="checkbox"
-              className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
-            />
-            <label></label>
-            <span className="text-black dark:text-white mr-3">
-              <img alt="Logo" src={Images.Logo} width="24" height="24" />
-            </span>
-            <span className="text-black dark:text-white">IncPhone Team</span>
-          </div>
+          {contacts.map((contact, index) => {
+            return (
+              <div className="my-2 flex items-center" key={index}>
+                <input
+                  type="checkbox"
+                  className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
+                  onChange={() => {
+                    if (index === selectedIndex) {
+                      setSelectedIndex(null)
+                    }
+                    setSelectedIndex(index)
+                  }}
+                  checked={index === selectedIndex ? true : false}
+                />
+                <label></label>
+                <span className="text-black dark:text-white mr-1">
+                  {contact.first_name}
+                </span>
+                <span className="text-black dark:text-white mr-3">
+                  {contact.last_name}
+                </span>
+                <span className="text-gray-500 mr-2">
+                  {contact.business_name}
+                </span>
+                <span className="text-gray-500">{contact.companyName}</span>
+              </div>
+            )
+          })}
         </div>
       </div>
-      <div></div>
+      {contacts[selectedIndex] !== undefined && (
+        <ContactInfo
+          firstname={contacts[selectedIndex].first_name}
+          lastname={contacts[selectedIndex].last_name}
+          businessname={contacts[selectedIndex].business_name}
+          emails={contacts[selectedIndex].emails}
+          notes={contacts[selectedIndex].notes}
+          phones={contacts[selectedIndex].phones}
+          addresses={contacts[selectedIndex].addresses}
+          dates={contacts[selectedIndex].dates}
+          initials={contacts[selectedIndex].initials}
+          role={contacts[selectedIndex].role}
+          title={contacts[selectedIndex].title}
+          urls={contacts[selectedIndex].urls}
+        />
+      )}
     </div>
   )
 }
