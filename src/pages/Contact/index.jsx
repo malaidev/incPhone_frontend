@@ -8,6 +8,7 @@ import "./index.css"
 export const Contact = () => {
   const [contacts, setContacts] = useState([])
   const [selectedIndex, setSelectedIndex] = useState()
+  const [selectedContact, setSelectedContact] = useState({})
 
   useEffect(() => {
     axios
@@ -21,6 +22,12 @@ export const Contact = () => {
         console.log(err)
       })
   }, [])
+
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      setSelectedContact(contacts[selectedIndex])
+    }
+  }, [selectedIndex, contacts])
 
   return (
     <div className="grid grid-cols-3 min-h-full">
@@ -74,18 +81,8 @@ export const Contact = () => {
       </div>
       {contacts[selectedIndex] !== undefined && (
         <ContactInfo
-          firstname={contacts[selectedIndex].first_name}
-          lastname={contacts[selectedIndex].last_name}
-          businessname={contacts[selectedIndex].business_name}
-          emails={contacts[selectedIndex].emails}
-          notes={contacts[selectedIndex].notes}
-          phones={contacts[selectedIndex].phones}
-          addresses={contacts[selectedIndex].addresses}
-          dates={contacts[selectedIndex].dates}
-          initials={contacts[selectedIndex].initials}
-          role={contacts[selectedIndex].role}
-          title={contacts[selectedIndex].title}
-          urls={contacts[selectedIndex].urls}
+          selectedContact={selectedContact}
+          setSelectedContact={setSelectedContact}
         />
       )}
     </div>
