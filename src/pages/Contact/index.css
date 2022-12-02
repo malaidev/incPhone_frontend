@@ -1,44 +1,100 @@
 /* styled-checkbox */
-.styled-checkbox + label {
-  position: relative;
-  cursor: pointer;
-  padding: 0;
+
+.styled-checkbox+label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
 }
 
-.styled-checkbox + label::before {
-  content: "";
-  margin-right: 10px;
-  display: inline-block;
-  vertical-align: text-top;
-  width: 20px;
-  height: 20px;
-  background: white;
-  border-radius: 5px;
-  border: 1px solid #4b5563;
+.styled-checkbox+label::before {
+    content: "";
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    /* background: white; */
+    border-radius: 5px;
+    border: 1px solid #4b5563;
 }
 
-.styled-checkbox:hover + label::before {
-  background: #6b21a8;
+.styled-checkbox:hover+label::before {
+    /* transition: box-shadow 200ms ease;
+    box-shadow: 0 0 0 4px rgba(var(--_163vpsqe), 0.23);
+    background-color: rgba(var(--_163vpsqe), 0.23);
+    outline: none; */
+    background: #58416b;
 }
 
-.styled-checkbox:focus + label::before {
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+.styled-checkbox:focus+label::before {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
 }
 
-.styled-checkbox:checked + label::before {
-  background: #6b21a8;
+.styled-checkbox:checked+label::before {
+    background: #6b21a8;
 }
 
-.styled-checkbox:checked + label::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 9px;
-  background: white;
-  width: 2px;
-  height: 2px;
-  box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white,
-    4px -6px 0 white, 4px -8px 0 white;
-  transform: rotate(45deg);
+.styled-checkbox:checked+label::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 9px;
+    /* background: white; */
+    width: 2px;
+    height: 2px;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+    transform: rotate(45deg);
 }
+
+
 /* end styled-checkbox */
+
+
+/* Harry Potter's Style */
+
+.styled-checkbox-div-hover {
+    cursor: pointer;
+    height: 40px;
+    margin: 0 10px;
+    display: flex;
+    padding: 0 12px;
+    position: relative;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: flex-start;
+    background: #94a3b8;
+}
+
+.styled-contact-editname {
+    width: 238px;
+    /* margin: 5px 46px 5px 66px; */
+    margin: 6px auto;
+    display: grid;
+    padding: 7px 10px;
+    row-gap: 4px;
+    box-shadow: 0 2px 20px 0 rgb(0 0 0 / 35%), 0 0 0 1px rgb(80 80 98 / 55%);
+    column-gap: 12px;
+    border-radius: 5px;
+    grid-auto-rows: 16px;
+    grid-template-columns: max-content 1fr;
+}
+
+.styled-contact-editname-label {
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 450;
+    /* color: rgba(161, 120, 255, 0.08); */
+    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Helvetica, Arial, sans-serif;
+}
+
+.styled-contact-editname-input {
+    color: #EEEEF0;
+    width: 100%;
+    border: none;
+    height: 100%;
+    outline: none;
+    padding: 0;
+    font-size: 13px;
+    align-self: stretch;
+    background: none;
+}

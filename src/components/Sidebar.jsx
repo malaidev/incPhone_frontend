@@ -30,7 +30,7 @@ const Sidebar = () => {
       <div
         className={`${
           open ? "w-56" : "w-fit"
-        } hidden sm:block relative h-screen bg-gray-100 border-r border-gray-300 dark:border-gray-600 p-5 dark:bg-slate-800`}
+        } hidden sm:block relative h-screen bg-gray-100 border-r border-gray-300 dark:border-gray-600 p-5 dark:bg-darkSidebarBack`}
       >
         {/* <BsArrowLeftCircle
           className={`${
