@@ -12,7 +12,7 @@ export const Contact = () => {
   const [selectedContact, setSelectedContact] = useState({})
   const [temp, setTemp] = useState(false)
 
-  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheckAll, setIsCheckAll] = useState(false)
   const [selectedContactIds, setSelectedContactIds] = useState([])
 
   useEffect(() => {
@@ -29,17 +29,17 @@ export const Contact = () => {
   }, [])
 
   const handleUpdateContacts = (target, value, selectedId) => {
-    contacts[selectedIndex][target] = value;
+    contacts[selectedIndex][target] = value
     setContacts(contacts)
     setTemp(!temp)
   }
 
   const handleAllChecked = (e) => {
-    setIsCheckAll(!isCheckAll); //true
-    setSelectedContactIds(contacts.map(contact => contact.id));
+    setIsCheckAll(!isCheckAll) //true
+    setSelectedContactIds(contacts.map((contact) => contact.id))
 
     if (isCheckAll) {
-      setSelectedContactIds([]);
+      setSelectedContactIds([])
     }
   }
 
@@ -49,11 +49,12 @@ export const Contact = () => {
     }
     setSelectedIndex(index)
 
-    setSelectedContactIds([...selectedContactIds, e.target.id]);
+    setSelectedContactIds([...selectedContactIds, e.target.id])
     if (!e.target.checked) {
-      setSelectedContactIds(selectedContactIds.filter(item => item !== e.target.id));
+      setSelectedContactIds(
+        selectedContactIds.filter((item) => item !== e.target.id)
+      )
     }
-
   }
 
   useEffect(() => {
@@ -80,7 +81,9 @@ export const Contact = () => {
               type="checkbox"
               className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
               checked={isCheckAll}
-              onChange={(e) => { handleAllChecked(e) }}
+              onChange={(e) => {
+                handleAllChecked(e)
+              }}
             />
             <label></label>
             <span className="text-black dark:text-white mr-3">
@@ -94,8 +97,15 @@ export const Contact = () => {
           </div>
           {contacts.map((contact, index) => {
             return (
-              <div id={contact.id} className="flex items-center gap-x-6 p-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
-              mt-1 false"  key={contact.id} onClick={(e) => { handleCheckedContact(e, index) }}>
+              <div
+                id={contact.id}
+                className="flex items-center gap-x-6 p-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+              mt-1 false"
+                key={contact.id}
+                onClick={(e) => {
+                  handleCheckedContact(e, index)
+                }}
+              >
                 <div className="flex align-center">
                   <div>
                     <input
@@ -103,37 +113,51 @@ export const Contact = () => {
                       type="checkbox"
                       className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
                       checked={selectedContactIds.includes(contact.id)}
-                      onChange={(e) => { handleCheckedContact(e, index) }}
+                      onChange={(e) => {
+                        handleCheckedContact(e, index)
+                      }}
                     />
                     <label></label>
                   </div>
 
                   <span className="text-black dark:text-white mr-1">
-                    {contact.first_name + ' ' + contact.last_name}
+                    {contact.first_name + " " + contact.last_name}
                   </span>
 
-                  <img className="text-black dark:text-white ml-[16px] mr-[5px]" alt="Avatar" src={Avatars.BagDash} width="16" height="14" />
+                  <img
+                    className="text-black dark:text-white ml-[16px] mr-[5px]"
+                    alt="Avatar"
+                    src={Avatars.BagDash}
+                    width="16"
+                    height="14"
+                  />
 
                   <span className="text-gray-500 text-[12px]">
                     {contact.business_name}
                   </span>
-
                 </div>
               </div>
             )
           })}
         </div>
       </div>
-      {contacts[selectedIndex] == null ?
+      {contacts[selectedIndex] == null ? (
         <div className="flex flex-col items-center justify-center w-[45%] text-black dark:text-white">
-          <img className="text-black dark:text-white" alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
+          <img
+            className="text-black dark:text-white"
+            alt="Avatar"
+            src={Avatars.PersonCircle}
+            width="32"
+            height="32"
+          />
           <span>No contact selected</span>
-        </div> :
+        </div>
+      ) : (
         <ProfileSideBar
           selectedContact={selectedContact}
           handleUpdateContacts={handleUpdateContacts}
         />
-      }
+      )}
     </div>
   )
 }

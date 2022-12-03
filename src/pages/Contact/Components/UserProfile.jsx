@@ -15,23 +15,46 @@ export const UserProfile = (props) => {
             {props.selectedContact.initials}
           </span>
         </span>
-        
+
         <div>
-          {props.selectedIndex == true ?
-            <div className="styled-contact-editname" onBlur={props.handleDivBlur}>
-              <label className="styled-contact-editname-label">First name</label>
-              <input id="edit-first-name" name="first_name" className="styled-contact-editname-input" placeholder="Add a first name..."
+          {props.selectedIndex == true ? (
+            <div
+              className="styled-contact-editname"
+              onBlur={props.handleDivBlur}
+            >
+              <label className="styled-contact-editname-label">
+                First name
+              </label>
+              <input
+                id="edit-first-name"
+                name="first_name"
+                className="styled-contact-editname-input"
+                placeholder="Add a first name..."
                 defaultValue={props.selectedContact.first_name}
-                onKeyDown={props.handleKeyDown} />
+                onKeyDown={props.handleKeyDown}
+              />
               <label className="styled-contact-editname-label">Last name</label>
-              <input id="edit-last-name" name="last_name" className="styled-contact-editname-input" placeholder="Add a last name..."
+              <input
+                id="edit-last-name"
+                name="last_name"
+                className="styled-contact-editname-input"
+                placeholder="Add a last name..."
                 defaultValue={props.selectedContact.last_name}
-                onKeyDown={props.handleKeyDown} />
-            </div> :
-            <div className="outline-none text-center cursor-pointer text-2xl font-bold my-[15px]" onClick={() => { props.setSelectedIndex(true) }}>
-              {props.selectedContact.first_name + ' ' + props.selectedContact.last_name}
+                onKeyDown={props.handleKeyDown}
+              />
             </div>
-          }
+          ) : (
+            <div
+              className="outline-none text-center cursor-pointer text-2xl font-bold my-[15px]"
+              onClick={() => {
+                props.setSelectedIndex(true)
+              }}
+            >
+              {props.selectedContact.first_name +
+                " " +
+                props.selectedContact.last_name}
+            </div>
+          )}
         </div>
 
         <div className="flex items-center justify-center pb-8 border-b border-gray-300 dark:border-gray-600">
