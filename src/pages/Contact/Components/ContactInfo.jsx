@@ -1,43 +1,83 @@
-import React, { useState, useEffect } from "react"
-import { Avatars } from "../../../assets"
+import React, { useState, useEffect } from "react";
+import { Avatars } from "../../../assets";
+import PropertyField from "../../../components/PropertyField";
 
-import "../index.css"
+import "../index.css";
 
 export const ContactInfo = (props) => {
-  const contact = props.selectedContact
-  const contactEntries = Object.entries(contact)
+  const fieldsOrder = [
+    "business_name",
+    "role",
+    "phones",
+    "emails",
+    "addresses",
+    "urls",
+    "dates",
+    "checkbox",
+    "notes",
+    "number",
+  ];
 
-  console.log("@@@", contactEntries)
+  const [sortFieldsArray, setSortFieldsArray] = useState([]);
+
+  useEffect(() => {
+    const tempSortFieldsArray = []
+
+    const contact = props.selectedContact
+    const contactEntries = Object.entries(contact)
+
+    fieldsOrder.map((item, key) => {
+      const itemValue = contact[item]
+      if (Array.isArray(itemValue) === true && itemValue.length === 0) {
+        const itemArray = [item, [""]]
+        tempSortFieldsArray.push(itemArray)
+      } else {
+        const itemArray = [item, contact[item]]
+        tempSortFieldsArray.push(itemArray)
+      }
+    })
+
+    setSortFieldsArray(tempSortFieldsArray)
+  }, [props.selectedContact, fieldsOrder])
+
+  const handleAddProperty = (e) => {
+    const selectedProperty = e.target.value;
+    const propertyIndex = fieldsOrder.indexOf(selectedProperty);
+    let temp = [...sortFieldsArray];
+    temp[propertyIndex][1].push([""]);
+    setSortFieldsArray(temp);
+  };
+
+  console.log("@@@@@@@@", props.selectedContact);
   return (
     <div>
       <div className="flex flex-col pt-6 pl-5 pr-1">
-        <div className="flex px-[10px]">
-          <div className="flex items-center w-[60%]">
-            <img
-              className="text-black dark:text-white"
-              alt="Avatar"
-              src={Avatars.BagDash}
-              width="14"
-              height="14"
+        {sortFieldsArray.map((item, key) => {
+          return (
+            <PropertyField
+              item={item}
+              key={key}
+              selectedContact={props.selectedContact}
+              handleUpdateProperty={props.handleUpdateProperty}
             />
-            <span className="basicFont dark:text-darkGrayText">
-              &nbsp;&nbsp;&nbsp;Business_Name
-            </span>
-          </div>
-          <div className="flex items-center justify-between w-[100%] hover:bg-[#252434] contactPropertyDiv">
-            <span>{contact.business_name}</span>
-            <button className="opacity-0 hover:opacity-100">
-              <img
-                className="text-black dark:text-darkGrayText"
-                alt="Avatar"
-                src={Avatars.Copy}
-                width="12"
-                height="12"
-              />
-            </button>
-          </div>
+          );
+        })}
+
+        <div className="relative hover:bg-[#231d36] py-[4px] px-[11px] mt-[10px] transition-all duration-500 rounded-md w-[45%]">
+          <select
+            className="bg-transparent dark:text-primary text-[14px] shadow-sm outline-none appearance-none focus:border-indigo-600"
+            onChange={(e) => handleAddProperty(e)}
+          >
+            <option value="">+ Add a property</option>
+            <option value="phones">Phone Number</option>
+            <option value="emails">Email</option>
+            <option value="addresses">Address</option>
+            <option value="urls">Url</option>
+            <option value="dates">Date</option>
+            <option value="notes">Text</option>
+          </select>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

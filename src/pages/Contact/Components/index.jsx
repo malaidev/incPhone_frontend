@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react"
-import { Avatars } from "../../../assets"
-import { BiPhoneCall, BiMessageAltDetail, BiMailSend } from "react-icons/bi"
-import { UserProfile } from "./UserProfile"
-import { ContactInfo } from "./ContactInfo"
+import React, { useState, useEffect } from "react";
+import { Avatars } from "../../../assets";
+import { BiPhoneCall, BiMessageAltDetail, BiMailSend } from "react-icons/bi";
+import { UserProfile } from "./UserProfile";
+import { ContactInfo } from "./ContactInfo";
 
-import "../index.css"
+import "../index.css";
 
 export const ProfileSideBar = (props) => {
-  const [selectedIndex, setSelectedIndex] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(false);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -15,14 +15,14 @@ export const ProfileSideBar = (props) => {
         e.target.name,
         e.target.value,
         props.selectedContact.id
-      )
-      handleDivBlur()
+      );
+      handleDivBlur();
     }
-  }
+  };
 
   const handleDivBlur = (event) => {
-    setSelectedIndex(false)
-  }
+    setSelectedIndex(false);
+  };
 
   return (
     <div className="w-[45%] text-black dark:text-white">
@@ -36,9 +36,12 @@ export const ProfileSideBar = (props) => {
             setSelectedIndex={setSelectedIndex}
           />
 
-          <ContactInfo selectedContact={props.selectedContact} />
+          <ContactInfo
+            selectedContact={props.selectedContact}
+            handleUpdateProperty={props.handleUpdateProperty}
+          />
         </div>
       )}
     </div>
-  )
-}
+  );
+};

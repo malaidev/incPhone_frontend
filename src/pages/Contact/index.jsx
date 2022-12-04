@@ -58,12 +58,12 @@ export const Contact = () => {
   }
 
   useEffect(() => {
-    if (contacts.length > 0 && selectedContactIds.length == contacts.length) {
+    if (contacts.length > 0 && selectedContactIds.length === contacts.length) {
       setIsCheckAll(true)
-    } else if (selectedContactIds.length == 0) {
+    } else if (selectedContactIds.length === 0) {
       setIsCheckAll(false)
     }
-  }, [selectedContactIds])
+  }, [selectedContactIds, contacts.length])
 
   useEffect(() => {
     if (selectedIndex !== null) {
@@ -71,6 +71,24 @@ export const Contact = () => {
     }
   }, [selectedIndex, contacts])
 
+  const handleUpdateProperty = (address_book_id, contact_id, data) => {
+    console.log("###########", address_book_id, contact_id, data)
+    axios
+      .put(
+        "https://addressbook.services.incphone.com/api/addressbooks/" +
+          address_book_id +
+          "/contacts/" +
+          contact_id,
+        data
+      )
+      .then((res) => {
+        console.log("!!!!!!!!!!!", res.data)
+        // setContacts(res.data);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
   return (
     <div className="flex w-full min-h-full">
       <div className="w-[100%] border-r border-gray-300 dark:border-gray-600 custom">
@@ -156,6 +174,7 @@ export const Contact = () => {
         <ProfileSideBar
           selectedContact={selectedContact}
           handleUpdateContacts={handleUpdateContacts}
+          handleUpdateProperty={handleUpdateProperty}
         />
       )}
     </div>

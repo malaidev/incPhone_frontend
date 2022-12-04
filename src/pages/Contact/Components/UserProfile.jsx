@@ -17,7 +17,7 @@ export const UserProfile = (props) => {
         </span>
 
         <div>
-          {props.selectedIndex == true ? (
+          {props.selectedIndex === true ? (
             <div
               className="styled-contact-editname"
               onBlur={props.handleDivBlur}
