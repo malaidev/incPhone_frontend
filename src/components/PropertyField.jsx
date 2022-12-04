@@ -1,22 +1,22 @@
-import React from "react"
-import { Avatars } from "../assets"
+import React from "react";
+import { Avatars } from "../assets";
 
 const Property = (props) => {
-  const uniqueKey = Math.floor(Math.random() * 100)
+  const uniqueKey = Math.floor(Math.random() * 100);
 
   const handleUpdate = (e) => {
     if (e.key === "Enter") {
-      const contact_id = props.selectedContact.id
-      const address_book_id = props.selectedContact.address_book_id
-      const propertyField = e.target.name
-      const propertyValue = e.target.value
+      const contact_id = props.selectedContact.id;
+      const address_book_id = props.selectedContact.address_book_id;
+      const propertyField = e.target.name;
+      const propertyValue = e.target.value;
       const data = {
         [propertyField]: propertyValue,
-      }
-      console.log("propertyField", contact_id, address_book_id, data)
-      props.handleUpdateProperty(address_book_id, contact_id, data)
+      };
+      console.log("propertyField", contact_id, address_book_id, data);
+      props.handleUpdateProperty(address_book_id, contact_id, data);
     }
-  }
+  };
 
   return (
     <div className="flex px-[10px]" key={props.item[0] + uniqueKey}>
@@ -37,9 +37,7 @@ const Property = (props) => {
           name={props.item[0]}
           className="border-0 outline-none py-[4px] text-[0.8rem] bg-transparent ml-[5px]"
           defaultValue={
-            Array.isArray(props.item[1]) === true
-              ? props.subItem
-              : props.item[1]
+            Array.isArray(props.item[1]) == true ? props.subItem : props.item[1]
           }
           onKeyDown={handleUpdate}
         />
@@ -54,11 +52,11 @@ const Property = (props) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const PropertyField = (props) => {
-  if (Array.isArray(props.item[1]) === true) {
+  if (Array.isArray(props.item[1]) == true) {
     return props.item[1].map((subItem, key) => {
       return (
         <Property
@@ -67,8 +65,8 @@ const PropertyField = (props) => {
           selectedContact={props.selectedContact}
           handleUpdateProperty={props.handleUpdateProperty}
         />
-      )
-    })
+      );
+    });
   } else {
     return (
       <Property
@@ -76,8 +74,8 @@ const PropertyField = (props) => {
         selectedContact={props.selectedContact}
         handleUpdateProperty={props.handleUpdateProperty}
       />
-    )
+    );
   }
-}
+};
 
-export default PropertyField
+export default PropertyField;

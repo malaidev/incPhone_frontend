@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import Navbar from "../../components/Navbar"
-import { AiOutlineSearch } from "react-icons/ai"
-import { ProfileSideBar } from "./Components"
-import { Avatars } from "../../assets"
-import "./index.css"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Navbar from "../../components/Navbar";
+import { AiOutlineSearch } from "react-icons/ai";
+import { ProfileSideBar } from "./Components";
+import { Avatars } from "../../assets";
+import "./index.css";
 
 export const Contact = () => {
-  const [contacts, setContacts] = useState([])
-  const [selectedIndex, setSelectedIndex] = useState()
-  const [selectedContact, setSelectedContact] = useState({})
-  const [temp, setTemp] = useState(false)
+  const [contacts, setContacts] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState();
+  const [selectedContact, setSelectedContact] = useState({});
+  const [temp, setTemp] = useState(false);
 
-  const [isCheckAll, setIsCheckAll] = useState(false)
-  const [selectedContactIds, setSelectedContactIds] = useState([])
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [selectedContactIds, setSelectedContactIds] = useState([]);
 
   useEffect(() => {
     axios
@@ -21,58 +21,57 @@ export const Contact = () => {
         "https://addressbook.services.incphone.com/api/addressbooks/771967dd-b03e-4a0f-b527-17ab71c6735a/contacts"
       )
       .then((res) => {
-        setContacts(res.data)
+        setContacts(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+        console.log(err);
+      });
+  }, []);
 
   const handleUpdateContacts = (target, value, selectedId) => {
-    contacts[selectedIndex][target] = value
-    setContacts(contacts)
-    setTemp(!temp)
-  }
+    contacts[selectedIndex][target] = value;
+    setContacts(contacts);
+    setTemp(!temp);
+  };
 
   const handleAllChecked = (e) => {
-    setIsCheckAll(!isCheckAll) //true
-    setSelectedContactIds(contacts.map((contact) => contact.id))
+    setIsCheckAll(!isCheckAll); //true
+    setSelectedContactIds(contacts.map((contact) => contact.id));
 
     if (isCheckAll) {
-      setSelectedContactIds([])
+      setSelectedContactIds([]);
     }
-  }
+  };
 
   const handleCheckedContact = (e, index) => {
     if (index === selectedIndex) {
-      setSelectedIndex(null)
+      setSelectedIndex(null);
     }
-    setSelectedIndex(index)
+    setSelectedIndex(index);
 
-    setSelectedContactIds([...selectedContactIds, e.target.id])
+    setSelectedContactIds([...selectedContactIds, e.target.id]);
     if (!e.target.checked) {
       setSelectedContactIds(
         selectedContactIds.filter((item) => item !== e.target.id)
-      )
+      );
     }
-  }
+  };
 
   useEffect(() => {
-    if (contacts.length > 0 && selectedContactIds.length === contacts.length) {
-      setIsCheckAll(true)
-    } else if (selectedContactIds.length === 0) {
-      setIsCheckAll(false)
+    if (contacts.length > 0 && selectedContactIds.length == contacts.length) {
+      setIsCheckAll(true);
+    } else if (selectedContactIds.length == 0) {
+      setIsCheckAll(false);
     }
-  }, [selectedContactIds, contacts.length])
+  }, [selectedContactIds]);
 
   useEffect(() => {
     if (selectedIndex !== null) {
-      setSelectedContact(contacts[selectedIndex])
+      setSelectedContact(contacts[selectedIndex]);
     }
-  }, [selectedIndex, contacts])
+  }, [selectedIndex, contacts]);
 
   const handleUpdateProperty = (address_book_id, contact_id, data) => {
-    console.log("###########", address_book_id, contact_id, data)
     axios
       .put(
         "https://addressbook.services.incphone.com/api/addressbooks/" +
@@ -82,13 +81,13 @@ export const Contact = () => {
         data
       )
       .then((res) => {
-        console.log("!!!!!!!!!!!", res.data)
+        console.log("!!!!!!!!!!!", res.data);
         // setContacts(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
   return (
     <div className="flex w-full min-h-full">
       <div className="w-[100%] border-r border-gray-300 dark:border-gray-600 custom">
@@ -100,7 +99,7 @@ export const Contact = () => {
               className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
               checked={isCheckAll}
               onChange={(e) => {
-                handleAllChecked(e)
+                handleAllChecked(e);
               }}
             />
             <label></label>
@@ -121,7 +120,7 @@ export const Contact = () => {
               mt-1 false"
                 key={contact.id}
                 onClick={(e) => {
-                  handleCheckedContact(e, index)
+                  handleCheckedContact(e, index);
                 }}
               >
                 <div className="flex align-center">
@@ -132,7 +131,7 @@ export const Contact = () => {
                       className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
                       checked={selectedContactIds.includes(contact.id)}
                       onChange={(e) => {
-                        handleCheckedContact(e, index)
+                        handleCheckedContact(e, index);
                       }}
                     />
                     <label></label>
@@ -155,7 +154,7 @@ export const Contact = () => {
                   </span>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
@@ -178,5 +177,5 @@ export const Contact = () => {
         />
       )}
     </div>
-  )
-}
+  );
+};
