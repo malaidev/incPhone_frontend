@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Avatars } from "../../../assets";
+import React, { useState, useEffect } from "react"
+import { Avatars } from "../../../assets"
 
-import "../index.css";
+import "../index.css"
 
 export const Notes = (props) => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([])
 
   const handleGetTime = () => {
-    var today = new Date();
+    var today = new Date()
     var date =
-      today.getFullYear() +
-      "-" +
-      (today.getMonth() + 1) +
-      "-" +
-      today.getDate();
+      today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()
     var time =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date + " " + time;
-    return dateTime;
-  };
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+    var dateTime = date + " " + time
+    return dateTime
+  }
   const handleAddNote = (e) => {
     if (e.key === "Enter") {
-      var currentTime = handleGetTime();
+      var currentTime = handleGetTime()
       const newNote = {
         content: e.target.value,
         time: currentTime,
-      };
-      let tempNotes = [...notes];
-      tempNotes.push(newNote);
-      setNotes(tempNotes);
+      }
+      let tempNotes = [...notes]
+      tempNotes.push(newNote)
+
+      const contact_id = props.selectedContact.id
+      const address_book_id = props.selectedContact.address_book_id
+
+      props.handleUpdateProperty(address_book_id, contact_id, "notes", newNote)
     }
-  };
+  }
+
+  useEffect(() => {
+    setNotes(props.selectedContact.notes)
+  })
 
   return (
     <div>
@@ -44,5 +48,5 @@ export const Notes = (props) => {
         ></textarea>
       </div>
     </div>
-  );
-};
+  )
+}
