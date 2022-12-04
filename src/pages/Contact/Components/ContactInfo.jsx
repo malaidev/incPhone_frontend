@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Avatars } from "../../../assets";
 import PropertyField from "../../../components/PropertyField";
 
@@ -21,24 +22,24 @@ export const ContactInfo = (props) => {
   const [sortFieldsArray, setSortFieldsArray] = useState([]);
 
   useEffect(() => {
-    const tempSortFieldsArray = []
+    const tempSortFieldsArray = [];
 
-    const contact = props.selectedContact
-    const contactEntries = Object.entries(contact)
+    const contact = props.selectedContact;
+    const contactEntries = Object.entries(contact);
 
     fieldsOrder.map((item, key) => {
-      const itemValue = contact[item]
-      if (Array.isArray(itemValue) === true && itemValue.length === 0) {
-        const itemArray = [item, [""]]
-        tempSortFieldsArray.push(itemArray)
+      const itemValue = contact[item];
+      if (Array.isArray(itemValue) == true && itemValue.length == 0) {
+        const itemArray = [item, [""]];
+        tempSortFieldsArray.push(itemArray);
       } else {
-        const itemArray = [item, contact[item]]
-        tempSortFieldsArray.push(itemArray)
+        const itemArray = [item, contact[item]];
+        tempSortFieldsArray.push(itemArray);
       }
-    })
+    });
 
-    setSortFieldsArray(tempSortFieldsArray)
-  }, [props.selectedContact, fieldsOrder])
+    setSortFieldsArray(tempSortFieldsArray);
+  }, [props.selectedContact]);
 
   const handleAddProperty = (e) => {
     const selectedProperty = e.target.value;
@@ -46,9 +47,30 @@ export const ContactInfo = (props) => {
     let temp = [...sortFieldsArray];
     temp[propertyIndex][1].push([""]);
     setSortFieldsArray(temp);
+
+    // const address_book_id = props.selectedContact.address_book_id;
+    // const contact_id = props.selectedContact.id;
+    // const propertyName = e.target.value;
+
+    // axios
+    //   .post(
+    //     "https://addressbook.services.incphone.com/api/addressbooks/" +
+    //       address_book_id +
+    //       "/contacts/" +
+    //       contact_id +
+    //       "/" +
+    //       propertyName,
+    //     ''
+    //   )
+    //   .then((res) => {
+    //     console.log("$$$$$$$$$", res.data);
+    //     // setContacts(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
-  console.log("@@@@@@@@", props.selectedContact);
   return (
     <div>
       <div className="flex flex-col pt-6 pl-5 pr-1">
