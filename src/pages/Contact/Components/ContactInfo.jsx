@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Avatars } from "../../../assets";
-import PropertyField from "../../../components/PropertyField";
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import { Avatars } from "../../../assets"
+import PropertyField from "../../../components/PropertyField"
 
-import "../index.css";
+import "../index.css"
 
 export const ContactInfo = (props) => {
   const fieldsOrder = [
@@ -15,38 +15,36 @@ export const ContactInfo = (props) => {
     "urls",
     "dates",
     "checkbox",
-    "notes",
-    "number",
-  ];
+  ]
 
-  const [sortFieldsArray, setSortFieldsArray] = useState([]);
-
+  const [sortFieldsArray, setSortFieldsArray] = useState([])
+  console.log("$$$$$", props.selectedContact)
   useEffect(() => {
-    const tempSortFieldsArray = [];
+    const tempSortFieldsArray = []
 
-    const contact = props.selectedContact;
-    const contactEntries = Object.entries(contact);
+    const contact = props.selectedContact
+    const contactEntries = Object.entries(contact)
 
     fieldsOrder.map((item, key) => {
-      const itemValue = contact[item];
+      const itemValue = contact[item]
       if (Array.isArray(itemValue) == true && itemValue.length == 0) {
-        const itemArray = [item, [""]];
-        tempSortFieldsArray.push(itemArray);
+        const itemArray = [item, ["Set " + item + "..."]]
+        tempSortFieldsArray.push(itemArray)
       } else {
-        const itemArray = [item, contact[item]];
-        tempSortFieldsArray.push(itemArray);
+        const itemArray = [item, contact[item]]
+        tempSortFieldsArray.push(itemArray)
       }
-    });
+    })
 
-    setSortFieldsArray(tempSortFieldsArray);
-  }, [props.selectedContact]);
+    setSortFieldsArray(tempSortFieldsArray)
+  }, [props.selectedContact])
 
   const handleAddProperty = (e) => {
-    const selectedProperty = e.target.value;
-    const propertyIndex = fieldsOrder.indexOf(selectedProperty);
-    let temp = [...sortFieldsArray];
-    temp[propertyIndex][1].push([""]);
-    setSortFieldsArray(temp);
+    const selectedProperty = e.target.value
+    const propertyIndex = fieldsOrder.indexOf(selectedProperty)
+    let temp = [...sortFieldsArray]
+    temp[propertyIndex][1].push([""])
+    setSortFieldsArray(temp)
 
     // const address_book_id = props.selectedContact.address_book_id;
     // const contact_id = props.selectedContact.id;
@@ -69,7 +67,7 @@ export const ContactInfo = (props) => {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-  };
+  }
 
   return (
     <div>
@@ -82,7 +80,7 @@ export const ContactInfo = (props) => {
               selectedContact={props.selectedContact}
               handleUpdateProperty={props.handleUpdateProperty}
             />
-          );
+          )
         })}
 
         <div className="relative hover:bg-[#231d36] py-[4px] px-[11px] mt-[10px] transition-all duration-500 rounded-md w-[45%]">
@@ -101,5 +99,5 @@ export const ContactInfo = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

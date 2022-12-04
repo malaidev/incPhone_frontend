@@ -47,25 +47,33 @@ const Property = (props) => {
           {props.item[0].charAt(0).toUpperCase() + props.item[0].slice(1)}
         </span>
       </div>
-      <div className="flex items-center justify-between w-[100%] hover:bg-[#252434] contactPropertyDiv">
-        <input
-          name={props.item[0]}
-          className="border-0 outline-none py-[4px] text-[0.8rem] bg-transparent ml-[5px]"
-          defaultValue={
-            Array.isArray(props.item[1]) == true ? props.subItem : props.item[1]
-          }
-          onKeyDown={(e) => handleUpdate(e, props.subItem)}
-        />
-        <button className="">
-          <img
-            className="text-black dark:text-darkGrayText"
-            alt="Avatar"
-            src={Avatars.copy}
-            width="12"
-            height="12"
+      {props.item[0] === "business_name" || props.item[0] === "role" ? (
+        <div className="flex items-center justify-between w-[100%] contactPropertyDiv">
+          {props.item[1]}
+        </div>
+      ) : (
+        <div className="flex items-center justify-between w-[100%] hover:bg-[#252434] contactPropertyDiv">
+          <input
+            name={props.item[0]}
+            className="border-0 outline-none py-[4px] text-[0.8rem] bg-transparent ml-[5px]"
+            defaultValue={
+              Array.isArray(props.item[1]) == true
+                ? props.subItem
+                : props.item[1]
+            }
+            onKeyDown={(e) => handleUpdate(e, props.subItem)}
           />
-        </button>
-      </div>
+          <button className="">
+            <img
+              className="text-black dark:text-darkGrayText"
+              alt="Avatar"
+              src={Avatars.copy}
+              width="12"
+              height="12"
+            />
+          </button>
+        </div>
+      )}
     </div>
   )
 }
