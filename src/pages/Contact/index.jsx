@@ -96,8 +96,8 @@ export const Contact = () => {
       })
   }
   return (
-    <div className="flex w-full min-h-full">
-      <div className="w-[100%] border-r border-gray-300 dark:border-gray-600 custom">
+    <div className="w-full min-h-full grid grid-cols-3">
+      <div className="col-span-2 border-r border-gray-300 dark:border-gray-600 custom">
         <Navbar name="Contacts" />
         <div className="flex flex-col mx-2">
           <div className="my-2 flex items-center p-1 text-base cursor-pointer mt-1 false">
@@ -166,7 +166,7 @@ export const Contact = () => {
         </div>
       </div>
       {contacts[selectedIndex] == null ? (
-        <div className="flex flex-col items-center justify-center w-[45%] text-black dark:text-white">
+        <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
           <img
             className="text-black dark:text-white"
             alt="Avatar"

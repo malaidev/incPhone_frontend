@@ -1,35 +1,36 @@
-import React from "react";
-import { Avatars } from "../assets";
+import React from "react"
+import { Avatars } from "../assets"
 
 const Property = (props) => {
-  const uniqueKey = Math.floor(Math.random() * 100);
+  const uniqueKey = Math.floor(Math.random() * 100)
 
   const handleUpdate = (e, updatedValue) => {
     if (e.key === "Enter") {
-      const contact_id = props.selectedContact.id;
-      const address_book_id = props.selectedContact.address_book_id;
-      const propertyField = e.target.name;
-      const propertyValue = e.target.value;
+      const contact_id = props.selectedContact.id
+      const address_book_id = props.selectedContact.address_book_id
+      const propertyField = e.target.name
+      const propertyValue = e.target.value
 
-      const previousArray = props.selectedContact[e.target.name];
-      console.log("propertyField", e.target.name, previousArray);
+      const previousArray = props.selectedContact[e.target.name]
 
-      if (Array.isArray(previousArray) == true) {
-        
+      let newData
+      if (Array.isArray(previousArray) === true) {
+        const index = previousArray.indexOf(updatedValue)
+        let tempPreviousArray = [...previousArray]
+        tempPreviousArray.splice(index, 1, propertyValue)
+        newData = tempPreviousArray
       } else {
-        const newData = propertyValue;
+        newData = propertyValue
       }
-      const data = {
-        [propertyField]: propertyValue,
-      };
+      console.log("@@@@", newData)
       props.handleUpdateProperty(
         address_book_id,
         contact_id,
         propertyField,
-        propertyValue
-      );
+        newData
+      )
     }
-  };
+  }
 
   return (
     <div className="flex px-[10px]" key={props.item[0] + uniqueKey}>
@@ -66,8 +67,8 @@ const Property = (props) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const PropertyField = (props) => {
   if (Array.isArray(props.item[1]) == true) {
@@ -79,8 +80,8 @@ const PropertyField = (props) => {
           selectedContact={props.selectedContact}
           handleUpdateProperty={props.handleUpdateProperty}
         />
-      );
-    });
+      )
+    })
   } else {
     return (
       <Property
@@ -88,8 +89,8 @@ const PropertyField = (props) => {
         selectedContact={props.selectedContact}
         handleUpdateProperty={props.handleUpdateProperty}
       />
-    );
+    )
   }
-};
+}
 
-export default PropertyField;
+export default PropertyField
