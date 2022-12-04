@@ -26,7 +26,7 @@ export const ProfileSideBar = (props) => {
   }
 
   return (
-    <div className="w-[45%] text-black dark:text-white">
+    <div className="col-span-1 text-black dark:text-white h-screen overflow-y-scroll overflow-x-hidden">
       {props.selectedContact !== undefined && (
         <div>
           <UserProfile
