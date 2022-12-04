@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Avatars } from "../../../assets";
 import PropertyField from "../../../components/PropertyField";
 
@@ -46,6 +47,28 @@ export const ContactInfo = (props) => {
     let temp = [...sortFieldsArray];
     temp[propertyIndex][1].push([""]);
     setSortFieldsArray(temp);
+
+    // const address_book_id = props.selectedContact.address_book_id;
+    // const contact_id = props.selectedContact.id;
+    // const propertyName = e.target.value;
+
+    // axios
+    //   .post(
+    //     "https://addressbook.services.incphone.com/api/addressbooks/" +
+    //       address_book_id +
+    //       "/contacts/" +
+    //       contact_id +
+    //       "/" +
+    //       propertyName,
+    //     ''
+    //   )
+    //   .then((res) => {
+    //     console.log("$$$$$$$$$", res.data);
+    //     // setContacts(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
