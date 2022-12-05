@@ -10,7 +10,7 @@ export const Contact = () => {
   const [contacts, setContacts] = useState([])
   const [selectedIndex, setSelectedIndex] = useState()
   const [selectedContact, setSelectedContact] = useState({})
-  const [temp, setTemp] = useState(false)
+  // const [temp, setTemp] = useState(false)
 
   const [isCheckAll, setIsCheckAll] = useState(false)
   const [selectedContactIds, setSelectedContactIds] = useState([])
@@ -29,9 +29,9 @@ export const Contact = () => {
   }, [])
 
   const handleUpdateContacts = (target, value, selectedId) => {
-    contacts[selectedIndex][target] = value
-    setContacts(contacts)
-    setTemp(!temp)
+    let tempContacts = [...contacts]
+    tempContacts[selectedIndex][target] = value
+    setContacts(tempContacts)
   }
 
   const handleAllChecked = (e) => {
