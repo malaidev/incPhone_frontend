@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { Avatars } from "../../../assets"
-import { BiPhoneCall, BiMessageAltDetail, BiMailSend } from "react-icons/bi"
 import { UserProfile } from "./UserProfile"
 import { ContactInfo } from "./ContactInfo"
 import { Notes } from "./Notes"
@@ -39,11 +37,12 @@ export const ProfileSideBar = (props) => {
           <ContactInfo
             selectedContact={props.selectedContact}
             handleUpdateProperty={props.handleUpdateProperty}
+            handleAddProperty={props.handleAddProperty}
           />
 
           <Notes
             selectedContact={props.selectedContact}
-            handleUpdateProperty={props.handleUpdateProperty}
+            handleNewNote={props.handleNewNote}
           />
         </div>
       )}

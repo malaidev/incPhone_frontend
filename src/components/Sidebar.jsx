@@ -1,29 +1,29 @@
-import React from "react"
-import { Link, useLocation } from "react-router-dom"
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 // import { BsArrowLeftCircle } from "react-icons/bs"
-import { AiFillPieChart } from "react-icons/ai"
-import { TfiAnnouncement } from "react-icons/tfi"
-import { AiOutlineContacts } from "react-icons/ai"
-import { CiSettings } from "react-icons/ci"
+import { AiOutlinePieChart } from "react-icons/ai";
+import { TfiAnnouncement } from "react-icons/tfi";
+import { AiOutlineContacts } from "react-icons/ai";
+import { CiSettings } from "react-icons/ci";
 // import { SiOpenaccess } from "react-icons/si"
-import { CgProfile } from "react-icons/cg"
-import { FcAddressBook } from "react-icons/fc"
-import Logo from "../assets/images/logo.svg"
+import { CgProfile } from "react-icons/cg";
+import { FcAddressBook } from "react-icons/fc";
+import Logo from "../assets/images/logo.svg";
 
 const Sidebar = () => {
   // const [open, setOpen] = useState(true)
-  const open = true
-  const location = useLocation()
+  const open = true;
+  const location = useLocation();
 
   const Menus = [
-    { title: "Dashboard", path: "/dashboard", src: <AiFillPieChart /> },
+    { title: "Dashboard", path: "/dashboard", src: <AiOutlinePieChart /> },
     { title: "Activity", path: "/activity", src: <TfiAnnouncement /> },
     { title: "Contact", path: "/contact", src: <AiOutlineContacts /> },
     { title: "Setting", path: "/setting", src: <CiSettings /> },
     { title: "Profile", path: "/profile", src: <CgProfile /> },
     // { title: "Signin", path: "/login", src: <SiOpenaccess />, gap: "true" },
-  ]
+  ];
 
   return (
     <>
@@ -82,7 +82,7 @@ const Sidebar = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

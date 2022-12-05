@@ -1,82 +1,131 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import Navbar from "../../components/Navbar"
-import { AiOutlineSearch } from "react-icons/ai"
-import { ProfileSideBar } from "./Components"
-import { Avatars } from "../../assets"
-import "./index.css"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Navbar from "../../components/Navbar";
+import { AiOutlineSearch } from "react-icons/ai";
+import { ProfileSideBar } from "./Components";
+import { Avatars } from "../../assets";
+import "./index.css";
 
 export const Contact = () => {
-  const [contacts, setContacts] = useState([])
-  const [selectedIndex, setSelectedIndex] = useState()
-  const [selectedContact, setSelectedContact] = useState({})
-  // const [temp, setTemp] = useState(false)
+  const [contacts, setContacts] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState();
+  const [selectedContact, setSelectedContact] = useState({});
 
-  const [isCheckAll, setIsCheckAll] = useState(false)
-  const [selectedContactIds, setSelectedContactIds] = useState([])
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [selectedContactIds, setSelectedContactIds] = useState([]);
 
-  useEffect(() => {
+  const getContactData = () => {
     axios
       .get(
         "https://addressbook.services.incphone.com/api/addressbooks/771967dd-b03e-4a0f-b527-17ab71c6735a/contacts"
       )
       .then((res) => {
-        setContacts(res.data)
+        setContacts(res.data);
+        console.log("@@@@", res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getContactData();
+  }, []);
 
   const handleUpdateContacts = (target, value, selectedId) => {
-    let tempContacts = [...contacts]
-    tempContacts[selectedIndex][target] = value
-    setContacts(tempContacts)
-  }
+    let tempContacts = [...contacts];
+    tempContacts[selectedIndex][target] = value;
+    setContacts(tempContacts);
+  };
 
   const handleAllChecked = (e) => {
-    setIsCheckAll(!isCheckAll) //true
-    setSelectedContactIds(contacts.map((contact) => contact.id))
+    setIsCheckAll(!isCheckAll); //true
+    setSelectedContactIds(contacts.map((contact) => contact.id));
 
     if (isCheckAll) {
-      setSelectedContactIds([])
+      setSelectedContactIds([]);
     }
-  }
+  };
 
   const handleCheckedContact = (e, index) => {
     if (index === selectedIndex) {
-      setSelectedIndex(null)
+      setSelectedIndex(null);
     }
-    setSelectedIndex(index)
+    setSelectedIndex(index);
 
-    setSelectedContactIds([...selectedContactIds, e.target.id])
+    setSelectedContactIds([...selectedContactIds, e.target.id]);
     if (!e.target.checked) {
       setSelectedContactIds(
         selectedContactIds.filter((item) => item !== e.target.id)
-      )
+      );
     }
-  }
+  };
 
   useEffect(() => {
     if (contacts.length > 0 && selectedContactIds.length == contacts.length) {
-      setIsCheckAll(true)
+      setIsCheckAll(true);
     } else if (selectedContactIds.length == 0) {
-      setIsCheckAll(false)
+      setIsCheckAll(false);
     }
-  }, [selectedContactIds])
+  }, [selectedContactIds]);
 
   useEffect(() => {
     if (selectedIndex !== null) {
-      setSelectedContact(contacts[selectedIndex])
+      setSelectedContact(contacts[selectedIndex]);
     }
-  }, [selectedIndex, contacts])
+  }, [selectedIndex, contacts]);
+
+  const handleAddProperty = (address_book_id, contact_id, propertyName) => {
+    axios
+      .post(
+        "https://addressbook.services.incphone.com/api/addressbooks/" +
+          address_book_id +
+          "/contacts/" +
+          contact_id +
+          "/" +
+          propertyName
+      )
+      .then((res) => {
+        getContactData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleNewNote = (address_book_id, contact_id, newNote) => {
+    axios
+      .post(
+        "https://addressbook.services.incphone.com/api/addressbooks/" +
+          address_book_id +
+          "/contacts/" +
+          contact_id +
+          "/notes",
+        newNote
+      )
+      .then((res) => {
+        getContactData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleUpdateProperty = (
     address_book_id,
     contact_id,
-    propertyName,
-    data
+    propertyId,
+    propertyField,
+    propertyValue
   ) => {
+    console.log(
+      "$$$$$$$$$$",
+      address_book_id,
+      contact_id,
+      propertyId,
+      propertyField,
+      propertyValue
+    );
     axios
       .put(
         "https://addressbook.services.incphone.com/api/addressbooks/" +
@@ -84,17 +133,20 @@ export const Contact = () => {
           "/contacts/" +
           contact_id +
           "/" +
-          propertyName,
-        data
+          propertyField +
+          "/" +
+          propertyId,
+        propertyValue
       )
       .then((res) => {
-        console.log("!!!!!!!!!!!", res.data)
-        // setContacts(res.data);
+        console.log("!!!!!!!!!!!", res.data);
+        getContactData();
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
+
   return (
     <div className="w-full min-h-full grid grid-cols-3">
       <div className="col-span-2 border-r border-gray-300 dark:border-gray-600 custom">
@@ -106,7 +158,7 @@ export const Contact = () => {
               className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
               checked={isCheckAll}
               onChange={(e) => {
-                handleAllChecked(e)
+                handleAllChecked(e);
               }}
             />
             <label></label>
@@ -127,7 +179,7 @@ export const Contact = () => {
               mt-1 false"
                 key={contact.id}
                 onClick={(e) => {
-                  handleCheckedContact(e, index)
+                  handleCheckedContact(e, index);
                 }}
               >
                 <div className="flex align-center">
@@ -138,7 +190,7 @@ export const Contact = () => {
                       className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
                       checked={selectedContactIds.includes(contact.id)}
                       onChange={(e) => {
-                        handleCheckedContact(e, index)
+                        handleCheckedContact(e, index);
                       }}
                     />
                     <label></label>
@@ -161,7 +213,7 @@ export const Contact = () => {
                   </span>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
@@ -180,9 +232,11 @@ export const Contact = () => {
         <ProfileSideBar
           selectedContact={selectedContact}
           handleUpdateContacts={handleUpdateContacts}
+          handleAddProperty={handleAddProperty}
+          handleNewNote={handleNewNote}
           handleUpdateProperty={handleUpdateProperty}
         />
       )}
     </div>
-  )
-}
+  );
+};
