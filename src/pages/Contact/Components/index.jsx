@@ -24,7 +24,6 @@ export const ProfileSideBar = (props) => {
   const handleDivBlur = (event) => {
     setSelectedIndex(false)
   }
-
   return (
     <div className="col-span-1 text-black dark:text-white h-screen overflow-y-scroll overflow-x-hidden">
       {props.selectedContact !== undefined && (

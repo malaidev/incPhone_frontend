@@ -18,26 +18,27 @@ export const ContactInfo = (props) => {
   ]
 
   const [sortFieldsArray, setSortFieldsArray] = useState([])
-  console.log("$$$$$", props.selectedContact)
+
   useEffect(() => {
     const tempSortFieldsArray = []
-
     const contact = props.selectedContact
-    const contactEntries = Object.entries(contact)
 
     fieldsOrder.map((item, key) => {
-      const itemValue = contact[item]
-      if (Array.isArray(itemValue) == true && itemValue.length == 0) {
-        const itemArray = [item, ["Set " + item + "..."]]
-        tempSortFieldsArray.push(itemArray)
-      } else {
-        const itemArray = [item, contact[item]]
-        tempSortFieldsArray.push(itemArray)
-      }
+      const itemArray = [item, contact[item]]
+      tempSortFieldsArray.push(itemArray)
+      // const itemValue = contact[item]
+      // if (Array.isArray(itemValue) == true && itemValue.length == 0) {
+      //   const itemArray = [item, ["Set " + item + "..."]]
+      //   tempSortFieldsArray.push(itemArray)
+      // } else {
+      //   const itemArray = [item, contact[item]]
+      //   tempSortFieldsArray.push(itemArray)
+      // }
     })
 
     setSortFieldsArray(tempSortFieldsArray)
   }, [props.selectedContact])
+  console.log("######", sortFieldsArray)
 
   const handleAddProperty = (e) => {
     const selectedProperty = e.target.value
