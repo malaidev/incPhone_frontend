@@ -18,13 +18,13 @@ export const UserProfile = (props) => {
         
         <div>
           {props.selectedIndex == true ?
-            <div className="styled-contact-editname" onBlur={props.handleDivBlur}>
-              <label className="styled-contact-editname-label">First name</label>
-              <input id="edit-first-name" name="first_name" className="styled-contact-editname-input" placeholder="Add a first name..."
+            <div className="style-editName style-darkShadow" onBlur={props.handleDivBlur}>
+              <label className="text-darkGrayText text-[13px] font-[450]">First name</label>
+              <input id="edit-first-name" name="first_name" className="text-black dark:text-white style-editNameInput " placeholder="Add a first name..."
                 defaultValue={props.selectedContact.first_name}
                 onKeyDown={props.handleKeyDown} />
-              <label className="styled-contact-editname-label">Last name</label>
-              <input id="edit-last-name" name="last_name" className="styled-contact-editname-input" placeholder="Add a last name..."
+              <label className="text-darkGrayText text-[13px] font-[450]">Last name</label>
+              <input id="edit-last-name" name="last_name" className="text-black dark:text-white style-editNameInput" placeholder="Add a last name..."
                 defaultValue={props.selectedContact.last_name}
                 onKeyDown={props.handleKeyDown} />
             </div> :
@@ -35,16 +35,16 @@ export const UserProfile = (props) => {
         </div>
 
         <div className="flex items-center justify-center pb-8 border-b border-gray-300 dark:border-gray-600">
-          <button className="contactInfoRoundButton hover:text-primary hover:bg-[#f3ffbb] dark:hover:bg-[#2d2d40]">
+          <button className="profileRoundBtn hover:text-primary hover:bg-[#e7e7e9] dark:darkProfileRBtn dark:hover:bg-[#2d2d40] dark:hover:text-primary">
             <BiPhoneCall className="w-6 h-6 m-auto" />
           </button>
-          <button className="contactInfoRoundButton hover:text-primary hover:bg-[#f3ffbb] dark:hover:bg-[#2d2d40]">
+          <button className="profileRoundBtn hover:text-primary hover:bg-[#e7e7e9] dark:darkProfileRBtn dark:hover:bg-[#2d2d40] dark:hover:text-primary">
             <BiMessageAltDetail className="w-6 h-6 m-auto" />
           </button>
-          <button className="contactInfoRoundButton hover:text-primary hover:bg-[#f3ffbb] dark:hover:bg-[#2d2d40]">
+          <button className="profileRoundBtn hover:text-primary hover:bg-[#e7e7e9] dark:darkProfileRBtn dark:hover:bg-[#2d2d40] dark:hover:text-primary">
             <BiMailSend className="w-6 h-6 m-auto" />
           </button>
-          <button className="contactInfoRoundButton hover:text-primary hover:bg-[#f3ffbb] dark:hover:bg-[#2d2d40]">
+          <button className="profileRoundBtn hover:text-primary hover:bg-[#e7e7e9] dark:darkProfileRBtn dark:hover:bg-[#2d2d40] dark:hover:text-primary">
             <FiMoreHorizontal className="w-6 h-6 m-auto" />
           </button>
         </div>

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { Avatars } from "../../../assets"
-import PropertyField from "../../../components/PropertyField"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Avatars } from "../../../assets";
+import PropertyField from "../../../components/PropertyField";
 
-import "../index.css"
+import "../index.css";
 
 export const ContactInfo = (props) => {
   const fieldsOrder = [
@@ -14,18 +14,17 @@ export const ContactInfo = (props) => {
     "addresses",
     "urls",
     "dates",
-    "checkbox",
-  ]
+  ];
 
-  const [sortFieldsArray, setSortFieldsArray] = useState([])
+  const [sortFieldsArray, setSortFieldsArray] = useState([]);
 
   useEffect(() => {
-    const tempSortFieldsArray = []
-    const contact = props.selectedContact
+    const tempSortFieldsArray = [];
+    const contact = props.selectedContact;
 
     fieldsOrder.map((item, key) => {
-      const itemArray = [item, contact[item]]
-      tempSortFieldsArray.push(itemArray)
+      const itemArray = [item, contact[item]];
+      tempSortFieldsArray.push(itemArray);
       // const itemValue = contact[item]
       // if (Array.isArray(itemValue) == true && itemValue.length == 0) {
       //   const itemArray = [item, ["Set " + item + "..."]]
@@ -34,41 +33,26 @@ export const ContactInfo = (props) => {
       //   const itemArray = [item, contact[item]]
       //   tempSortFieldsArray.push(itemArray)
       // }
-    })
+    });
 
-    setSortFieldsArray(tempSortFieldsArray)
-  }, [props.selectedContact])
-  console.log("######", sortFieldsArray)
+    setSortFieldsArray(tempSortFieldsArray);
+  }, [props.selectedContact]);
 
-  const handleAddProperty = (e) => {
-    const selectedProperty = e.target.value
-    const propertyIndex = fieldsOrder.indexOf(selectedProperty)
-    let temp = [...sortFieldsArray]
-    temp[propertyIndex][1].push([""])
-    setSortFieldsArray(temp)
+  const handleNewProperty = (e) => {
+    const selectedProperty = e.target.value;
+    const propertyIndex = fieldsOrder.indexOf(selectedProperty);
+    let temp = [...sortFieldsArray];
+    temp[propertyIndex][1].push([""]);
+    setSortFieldsArray(temp);
 
-    // const address_book_id = props.selectedContact.address_book_id;
-    // const contact_id = props.selectedContact.id;
-    // const propertyName = e.target.value;
+    console.log("SELECTedNewProperty", selectedProperty);
 
-    // axios
-    //   .post(
-    //     "https://addressbook.services.incphone.com/api/addressbooks/" +
-    //       address_book_id +
-    //       "/contacts/" +
-    //       contact_id +
-    //       "/" +
-    //       propertyName,
-    //     ''
-    //   )
-    //   .then((res) => {
-    //     console.log("$$$$$$$$$", res.data);
-    //     // setContacts(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  }
+    props.handleAddProperty(
+      props.selectedContact.address_book_id,
+      props.selectedContact.id,
+      selectedProperty
+    );
+  };
 
   return (
     <div>
@@ -81,13 +65,13 @@ export const ContactInfo = (props) => {
               selectedContact={props.selectedContact}
               handleUpdateProperty={props.handleUpdateProperty}
             />
-          )
+          );
         })}
 
         <div className="relative hover:bg-[#231d36] py-[4px] px-[11px] mt-[10px] transition-all duration-500 rounded-md w-[45%]">
           <select
             className="bg-transparent dark:text-primary text-[14px] shadow-sm outline-none appearance-none focus:border-indigo-600"
-            onChange={(e) => handleAddProperty(e)}
+            onChange={(e) => handleNewProperty(e)}
           >
             <option value="">+ Add a property</option>
             <option value="phones">Phone Number</option>
@@ -100,5 +84,5 @@ export const ContactInfo = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

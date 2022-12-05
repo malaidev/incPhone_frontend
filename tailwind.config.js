@@ -17,6 +17,7 @@ module.exports = {
                 // serif: ['Merriweather', 'serif'],
             },
             colors: {
+                white: "#ffffff",
                 black: "#09090c",
                 primary: "#A27AFF",
                 darkGray: "#121212",
