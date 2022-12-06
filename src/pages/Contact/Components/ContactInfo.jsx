@@ -68,7 +68,7 @@ export const ContactInfo = (props) => {
           );
         })}
 
-        <div className="relative hover:bg-[#231d36] py-[4px] px-[11px] mt-[10px] transition-all duration-500 rounded-md w-[45%]">
+        <div className="relative hover:bg-[#e5e7eb] dark:hover:bg-[#231d36] py-[4px] px-[11px] mt-[10px] transition-all duration-500 rounded-md w-[max-content]">
           <select
             className="bg-transparent dark:text-primary text-[14px] shadow-sm outline-none appearance-none focus:border-indigo-600"
             onChange={(e) => handleNewProperty(e)}
