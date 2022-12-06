@@ -17,6 +17,7 @@ export const Notes = (props) => {
     sym.forEach((el) => codesArray.push("0x" + el));
     let emoji = String.fromCodePoint(...codesArray);
     setNoteContent(noteContent + emoji);
+    setShowEmojis(!showEmojis);
   };
 
   useEffect(() => {
@@ -40,14 +41,6 @@ export const Notes = (props) => {
 
   const handleAddNote = (e) => {
     if (e.key === "Enter") {
-      // var currentTime = handleGetTime();
-      // const newNote = {
-      //   content: e.target.value,
-      //   time: currentTime,
-      // };
-      // let tempNotes = [...notes];
-      // tempNotes.push(newNote);
-
       const contact_id = props.selectedContact.id;
       const address_book_id = props.selectedContact.address_book_id;
       const newNote = e.target.value;
@@ -131,7 +124,6 @@ export const Notes = (props) => {
         <div className="EmojiDiv">
           {showEmojis && (
             <div className="absolute right-[100px] bottom-[60px]">
-              {/* <Picker onSelect={addEmoji} /> */}
               <Picker id="emojiPicker" data={data} onEmojiSelect={addEmoji} />
             </div>
           )}

@@ -8,7 +8,7 @@ const ToastAlert = (props) => {
       <label
         className="close cursor-pointer flex items-start justify-between w-full p-2 bg-green-500 h-10 rounded shadow-lg text-white"
         title="close"
-        htmlFor="footertoast"
+        // htmlFor="footertoast"
       >
         {props.text}
         <svg

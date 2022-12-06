@@ -39,34 +39,17 @@ const Property = (props) => {
     }
   };
 
-  const clipboardBtnComponent = (propertyValue) => {
-    if (propertyValue) {
-      setToast(!toastStatus);
-      return (
-        <div>
-          <button
-            className=""
-            value={propertyValue}
-            onClick={() => {
-              navigator.clipboard.writeText(propertyValue);
-              // window.clipboardData.setData("Text", "Copy this text to clipboard");
-            }}
-          >
-            <img
-              className="text-black dark:text-darkGrayText"
-              alt="Avatar"
-              src={Avatars.copy}
-              width="12"
-              height="12"
-            />
-          </button>
-        </div>
-      );
-    } else {
-      return;
-    }
-  };
+  const propertyDefaultValue = Array.isArray(props.item[1])
+    ? props.subItem[propertiesOrderObject[props.item[0]]]
+    : props.item[1];
 
+  const toastAlert = () => {
+    setToast(!toastStatus);
+
+    setTimeout(() => {
+      setToast(false);
+    }, 1500);
+  };
   return (
     <div className="flex px-[4px]" key={props.item[0] + uniqueKey}>
       <div className="flex items-center w-[60%]">
@@ -99,25 +82,16 @@ const Property = (props) => {
             onKeyDown={(e) => handleUpdate(e, props.subItem)}
           />
 
-          {clipboardBtnComponent(
-            Array.isArray(props.item[1])
-              ? props.subItem[propertiesOrderObject[props.item[0]]]
-              : props.item[1]
-          )}
-          {toastStatus ? <ToastAlert text="Copied to clipboard" /> : ""}
-          {/* <button
-            className=""
-            value={
-              Array.isArray(props.item[1])
-                ? props.subItem[propertiesOrderObject[props.item[0]]]
-                : props.item[1]
-            }
+          <button
+            className={propertyDefaultValue ? "flex" : "hidden"}
+            value={propertyDefaultValue}
             onClick={(e) => {
-              navigator.clipboard.writeText(e.target.value);
-              window.clipboardData.setData(
-                "Text",
-                "Copy this text to clipboard"
-              );
+              toastAlert();
+              navigator.clipboard.writeText(propertyDefaultValue);
+              // window.clipboardData.setData(
+              //   "Text",
+              //   "Copy this text to clipboard"
+              // );
             }}
           >
             <img
@@ -127,8 +101,17 @@ const Property = (props) => {
               width="12"
               height="12"
             />
-          </button> */}
+          </button>
         </div>
+      )}
+      {toastStatus ? (
+        <ToastAlert
+          text="Copied to clipboard"
+          toastStatus={toastStatus}
+          setToast={setToast}
+        />
+      ) : (
+        ""
       )}
     </div>
   );
