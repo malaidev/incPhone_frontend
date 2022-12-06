@@ -53,7 +53,6 @@ export const ContactInfo = (props) => {
       selectedProperty
     );
   };
-
   return (
     <div>
       <div className="flex flex-col pt-6 pl-5 pr-1">
