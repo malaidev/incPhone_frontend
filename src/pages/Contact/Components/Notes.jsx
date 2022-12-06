@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../../../assets/images/logo.svg";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
+import { Avatars } from "../../../assets";
+import Logo from "../../../assets/images/logo.svg";
 import "../index.css";
 
 export const Notes = (props) => {
   const [notes, setNotes] = useState([]);
+  const [noteContent, setNoteContent] = useState("");
+  const [showEmojis, setShowEmojis] = useState(false);
+
+  const addEmoji = (e) => {
+    let sym = e.unified.split("-");
+    let codesArray = [];
+    sym.forEach((el) => codesArray.push("0x" + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setNoteContent(noteContent + emoji);
+  };
 
   useEffect(() => {
     const notes = props.selectedContact.notes;
-    console.log("!!!!!!!", notes);
     setNotes(notes);
   }, [props.selectedContact]);
 
@@ -57,7 +69,7 @@ export const Notes = (props) => {
       </div>
       {notes.map((item, key) => {
         return (
-          <div className="flex pl-[16px] pr-[12px] py-[8px]">
+          <div className="flex pl-[16px] pr-[12px] py-[8px]" key={key}>
             <div className={`flex gap-x-4 items-center`}>
               <img src={Logo} alt="" className="pl-2" />
             </div>
@@ -81,13 +93,49 @@ export const Notes = (props) => {
         );
       })}
       <div className="flex flex-col pt-6 pl-5 pr-1">
-        <textarea
-          id="notes"
-          rows="4"
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Write a note..."
-          onKeyDown={handleAddNote}
-        ></textarea>
+        <div className="">
+          <textarea
+            id="notes"
+            rows="4"
+            className="block p-2.5 w-full text-sm text-gray-900 
+            bg-gray-50 dark:bg-darkBack
+            rounded-lg border border-gray-300 focus:border-[rgb(245 168 0 / 80%) 0px 0px 0px 1.5px inset, rgb(245 168 0 / 14%) 0px 0px 0px 4px]  
+            dark:border-gray-600 dark:placeholder-gray-600 dark:text-white 
+            shadow-[rgb(238 238 240 / 12%) 0px 0px 0px 1.5px inset] 
+            focus:box-shadow-[rgb(245 168 0 / 80%) 0px 0px 0px 1.5px inset, rgb(245 168 0 / 14%) 0px 0px 0px 4px] 
+            focus-visible:box-shadow-[rgb(245 168 0 / 80%) 0px 0px 0px 1.5px inset, rgb(245 168 0 / 14%) 0px 0px 0px 4px]
+            outline-none"
+            defaultValue={noteContent}
+            placeholder="Write a note..."
+            onChange={(e) => setNoteContent(e.target.value)}
+            onKeyDown={handleAddNote}
+          ></textarea>
+          <div
+            id="emojiIcon"
+            className="relative left-[10px] bottom-[25px] w-[max-content]"
+          >
+            <div className="dropup relative">
+              <button onClick={() => setShowEmojis(!showEmojis)}>
+                <img
+                  className="relativetext-black dark:text-darkGrayText "
+                  alt="Avatar"
+                  src={Avatars.emojiSmile}
+                  width="16"
+                  height="16"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="EmojiDiv">
+          {showEmojis && (
+            <div className="absolute right-[100px] bottom-[60px]">
+              {/* <Picker onSelect={addEmoji} /> */}
+              <Picker id="emojiPicker" data={data} onEmojiSelect={addEmoji} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

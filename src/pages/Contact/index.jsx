@@ -220,13 +220,14 @@ export const Contact = () => {
       {contacts[selectedIndex] == null ? (
         <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
           <img
-            className="text-black dark:text-white"
             alt="Avatar"
             src={Avatars.PersonCircle}
             width="32"
             height="32"
           />
-          <span>No contact selected</span>
+          <span className="text-darkGrayText">
+            No contact selected
+          </span>
         </div>
       ) : (
         <ProfileSideBar

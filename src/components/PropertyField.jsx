@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Avatars } from "../assets";
+import ToastAlert from "./ToastAlert";
 
 const propertiesOrderObject = {
   business_name: null,
@@ -12,32 +13,9 @@ const propertiesOrderObject = {
   checkbox: null,
 };
 
-const clipboardBtnComponent = (propertyValue) => {
-  if (propertyValue) {
-    return (
-      <button
-        className=""
-        value={propertyValue}
-        onClick={() => {
-          navigator.clipboard.writeText(propertyValue);
-          window.clipboardData.setData("Text", "Copy this text to clipboard");
-        }}
-      >
-        <img
-          className="text-black dark:text-darkGrayText"
-          alt="Avatar"
-          src={Avatars.copy}
-          width="12"
-          height="12"
-        />
-      </button>
-    );
-  } else {
-    return;
-  }
-};
-
 const Property = (props) => {
+  const [toastStatus, setToast] = useState(false);
+
   const property = props.item[0];
   const propertyValue = props.item[1];
   const uniqueKey = Math.floor(Math.random() * 100);
@@ -61,6 +39,34 @@ const Property = (props) => {
     }
   };
 
+  const clipboardBtnComponent = (propertyValue) => {
+    if (propertyValue) {
+      setToast(!toastStatus);
+      return (
+        <div>
+          <button
+            className=""
+            value={propertyValue}
+            onClick={() => {
+              navigator.clipboard.writeText(propertyValue);
+              // window.clipboardData.setData("Text", "Copy this text to clipboard");
+            }}
+          >
+            <img
+              className="text-black dark:text-darkGrayText"
+              alt="Avatar"
+              src={Avatars.copy}
+              width="12"
+              height="12"
+            />
+          </button>
+        </div>
+      );
+    } else {
+      return;
+    }
+  };
+
   return (
     <div className="flex px-[4px]" key={props.item[0] + uniqueKey}>
       <div className="flex items-center w-[60%]">
@@ -81,7 +87,7 @@ const Property = (props) => {
           {props.item[1]}
         </div>
       ) : (
-        <div className="flex items-center justify-between w-[100%] hover:bg-[#252434] contactPropertyDiv">
+        <div className="flex items-center justify-between w-[100%] hover:bg-[#e5e7eb] dark:hover:bg-[#252434] contactPropertyDiv">
           <input
             name={props.item[0]}
             className="border-0 outline-none py-[4px] text-[0.8rem] bg-transparent ml-[5px]"
@@ -98,7 +104,7 @@ const Property = (props) => {
               ? props.subItem[propertiesOrderObject[props.item[0]]]
               : props.item[1]
           )}
-
+          {toastStatus ? <ToastAlert text="Copied to clipboard" /> : ""}
           {/* <button
             className=""
             value={
