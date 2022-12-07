@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { ProfileSideBar } from "./Components/ProfileSideBar";
 import { ContactLists } from "./Components/ContactLists";
+import { NewContactSideBar } from "./Components/NewContactSideBar";
 import { Avatars } from "../../assets";
 import "./index.css";
 
@@ -75,6 +76,8 @@ export const Contact = () => {
         selectedContactIds.filter((item) => item !== e.target.id)
       );
     }
+
+    handleNewContact(false);
   };
 
   const handleNewContact = (value) => {
@@ -95,6 +98,22 @@ export const Contact = () => {
     }
   }, [selectedIndex, contacts]);
 
+  const handleSaveNewContact = (address_book_id, newContactValue) => {
+    axios
+      .post(
+        "https://addressbook.services.incphone.com/api/addressbooks/" +
+          address_book_id +
+          "/contacts",
+        newContactValue
+      )
+      .then((res) => {
+        getContactData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const handleAddProperty = (address_book_id, contact_id, propertyName) => {
     axios
       .post(
@@ -113,7 +132,12 @@ export const Contact = () => {
       });
   };
 
-  const handleNewNote = (address_book_id, contact_id, newNote) => {
+  const handleNewNote = (
+    address_book_id,
+    contact_id,
+    propertyName,
+    newNote
+  ) => {
     axios
       .post(
         "https://addressbook.services.incphone.com/api/addressbooks/" +
@@ -184,11 +208,12 @@ export const Contact = () => {
         handleCheckedContact={handleCheckedContact}
         handleNewContact={handleNewContact}
       />
+
       {newContactStatus ? (
-        <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
-          <img alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
-          <span className="text-darkGrayText">Create New Contact</span>
-        </div>
+        <NewContactSideBar
+          contacts={contacts}
+          handleSaveNewContact={handleSaveNewContact}
+        />
       ) : contacts[selectedIndex] == null ? (
         <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
           <img alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
@@ -203,21 +228,6 @@ export const Contact = () => {
           handleUpdateProperty={handleUpdateProperty}
         />
       )}
-
-      {/* {contacts[selectedIndex] == null ? (
-        <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
-          <img alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
-          <span className="text-darkGrayText">No contact selected</span>
-        </div>
-      ) : (
-        <ProfileSideBar
-          selectedContact={selectedContact}
-          handleUpdateContacts={handleUpdateContacts}
-          handleAddProperty={handleAddProperty}
-          handleNewNote={handleNewNote}
-          handleUpdateProperty={handleUpdateProperty}
-        />
-      )} */}
     </div>
   );
 };

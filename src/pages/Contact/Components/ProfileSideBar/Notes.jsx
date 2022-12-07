@@ -4,12 +4,14 @@ import Picker from "@emoji-mart/react";
 
 import { Avatars } from "../../../../assets";
 import Logo from "../../../../assets/images/logo.svg";
+import ToastAlert from "../../../../components/ToastAlert";
 import "../../index.css";
 
 export const Notes = (props) => {
   const [notes, setNotes] = useState([]);
   const [noteContent, setNoteContent] = useState("");
   const [showEmojis, setShowEmojis] = useState(false);
+  const [toastCopyStatus, setCopyToast] = useState(false);
 
   const handleSetNoteContent = (e) => {
     setNoteContent(e.target.value);
@@ -33,15 +35,26 @@ export const Notes = (props) => {
     if (e.key === "Enter") {
       const contact_id = props.selectedContact.id;
       const address_book_id = props.selectedContact.address_book_id;
-      const newNote = e.target.value;
+      const newNote = {
+        note: e.target.value,
+      };
 
       props.handleNewNote(address_book_id, contact_id, "notes", newNote);
+      setNoteContent("");
     }
   };
 
   useEffect(() => {
     setNotes(props.selectedContact.notes);
   });
+
+  const toastCopyAlert = () => {
+    setCopyToast(!toastCopyStatus);
+
+    setTimeout(() => {
+      setCopyToast(false);
+    }, 1500);
+  };
 
   return (
     <div>
@@ -52,24 +65,43 @@ export const Notes = (props) => {
       </div>
       {notes.map((item, key) => {
         return (
-          <div className="flex pl-[16px] pr-[12px] py-[8px]" key={key}>
+          <div className="flex relative pl-[16px] pr-[12px] py-[8px]" key={key}>
             <div className={`flex gap-x-4 items-center`}>
               <img src={Logo} alt="" className="pl-2" />
             </div>
-            <div className="ml-[12px]">
-              <div id="header" className="flex">
-                <div id="author" className="text-[14px]">
-                  {item.author ? item.author : "Eric Turner"}
+            <div className="flex  ml-[12px]">
+              <div>
+                <div id="header" className="flex">
+                  <div id="author" className="text-[14px]">
+                    {item.author ? item.author : "Eric Turner"}
+                  </div>
+                  <div
+                    id="time"
+                    className="text-darkGrayText text-[13px] ml-[5px] font-[450] font-sans"
+                  >
+                    {item.human_created_at_date}
+                  </div>
                 </div>
-                <div
-                  id="time"
-                  className="text-darkGrayText text-[13px] ml-[5px] font-[450] font-sans"
-                >
-                  {item.human_created_at_date}
+                <div id="note" className="text-[13px]">
+                  {item.note ? item.note : ""}
                 </div>
               </div>
-              <div id="note" className="text-[13px]">
-                {item.note ? item.note : "aaaaaaaaaffffffff"}
+              <div className="absolute right-[10px]">
+                <button
+                  value={item.note ? item.note : ""}
+                  onClick={(e) => {
+                    toastCopyAlert();
+                    navigator.clipboard.writeText(item.note ? item.note : "");
+                  }}
+                >
+                  <img
+                    className="text-black dark:text-darkGrayText"
+                    alt="Avatar"
+                    src={Avatars.copy}
+                    width="12"
+                    height="12"
+                  />
+                </button>
               </div>
             </div>
           </div>
@@ -119,6 +151,16 @@ export const Notes = (props) => {
           )}
         </div>
       </div>
+
+      {toastCopyStatus ? (
+        <ToastAlert
+          text="Copied to clipboard"
+          toastCopyStatus={toastCopyStatus}
+          setCopyToast={setCopyToast}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

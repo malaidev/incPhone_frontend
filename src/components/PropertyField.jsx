@@ -28,9 +28,21 @@ const Property = (props) => {
       const propertyField = e.target.name;
       const propertyValue = e.target.value;
 
+      console.log("*****", props.selectedContact);
+
       const updateValue = {
         [objectKey]: propertyValue,
       };
+
+      console.log(
+        "#######",
+        contact_id,
+        address_book_id,
+        propertyId,
+        propertyField,
+        updateValue
+      );
+
       props.handleUpdateProperty(
         address_book_id,
         contact_id,
@@ -75,7 +87,8 @@ const Property = (props) => {
         <div className="flex items-center justify-between w-[100%] hover:bg-[#e5e7eb] dark:hover:bg-[#252434] contactPropertyDiv">
           <input
             name={props.item[0]}
-            className="border-0 outline-none py-[4px] text-[0.8rem] bg-transparent ml-[5px]"
+            className="border-0 outline-none py-[4px] text-[0.8rem] !bg-transparent ml-[5px]"
+            autoComplete="off"
             defaultValue={
               Array.isArray(props.item[1])
                 ? props.subItem[propertiesOrderObject[props.item[0]]]
@@ -131,12 +144,14 @@ const PropertyField = (props) => {
   if (Array.isArray(ItemValue)) {
     return ItemValue.map((subItem, key) => {
       return (
-        <Property
-          item={props.item}
-          subItem={subItem}
-          selectedContact={props.selectedContact}
-          handleUpdateProperty={props.handleUpdateProperty}
-        />
+        <div key={key}>
+          <Property
+            item={props.item}
+            subItem={subItem}
+            selectedContact={props.selectedContact}
+            handleUpdateProperty={props.handleUpdateProperty}
+          />
+        </div>
       );
     });
   } else {
