@@ -21,10 +21,14 @@ export const ContactLists = (props) => {
   } = props;
 
   const [query, setQuery] = useState("");
-  
+
   return (
     <div className="col-span-2 border-r border-gray-300 dark:border-gray-600 custom">
-      <Header name="Contacts" handleNewContact={handleNewContact} />
+      <Header
+        name="Contacts"
+        selectedContactIds={selectedContactIds}
+        handleNewContact={handleNewContact}
+      />
       <div className="flex flex-col mx-2">
         <div className="my-2 flex items-center p-1 text-base cursor-pointer mt-1 false">
           <input

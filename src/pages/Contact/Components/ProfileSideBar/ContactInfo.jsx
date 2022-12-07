@@ -47,8 +47,8 @@ export const ContactInfo = (props) => {
     setProperty();
   };
 
-  const setProperty = () => {
-    setToogleProperty(!toogleProperty);
+  const setProperty = (toogle) => {
+    setToogleProperty(toogle);
   };
 
   return (
@@ -70,20 +70,21 @@ export const ContactInfo = (props) => {
             className="bg-transparent text-primary text-[14px] shadow-sm outline-none appearance-none focus:border-indigo-600"
             type="button"
             data-dropdown-toggle="dropdown"
-            onClick={() => setProperty()}
+            onClick={() => setProperty(!toogleProperty)}
           >
             + Add a property
           </button>
         </div>
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            setToogleProperty(false);
-          }}
+
+        <div
+          className={`${
+            !toogleProperty && "hidden"
+          } bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow w-[max-content] dark:bg-[#21212f] py-[5px] rounded-md`}
         >
-          <div
-            className={`${
-              !toogleProperty && "hidden"
-            } bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow w-[max-content] dark:bg-[#21212f] py-[5px] rounded-md`}
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              setToogleProperty(false);
+            }}
           >
             <ul className="" aria-labelledby="dropdown">
               <li
@@ -157,8 +158,8 @@ export const ContactInfo = (props) => {
                 Date
               </li>
             </ul>
-          </div>
-        </OutsideClickHandler>
+          </OutsideClickHandler>
+        </div>
       </div>
     </div>
   );
