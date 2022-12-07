@@ -8,6 +8,7 @@ import { Contact } from "./pages/Contact"
 import { Profile } from "./pages/Profile"
 import { Setting } from "./pages/Setting"
 import { Login } from "./pages/Login"
+import { Primary } from "./pages/Inbox"
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/primary" element={<Primary />} />
+
         </Routes>
       </Layout>
     </BrowserRouter>

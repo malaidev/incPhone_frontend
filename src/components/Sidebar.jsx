@@ -9,6 +9,8 @@ import { CiSettings } from "react-icons/ci";
 // import { SiOpenaccess } from "react-icons/si"
 import { CgProfile } from "react-icons/cg";
 import { FcAddressBook } from "react-icons/fc";
+import { FcCallback } from "react-icons/fc";
+
 import Logo from "../assets/images/logo.svg";
 
 const Sidebar = () => {
@@ -73,6 +75,25 @@ const Sidebar = () => {
         </ul>
 
         <p className="text-black dark:text-white pt-4">Inboxes</p>
+        <Link to="/primary">
+          <li
+            className={`flex items-center gap-x-6 p-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+                        ${
+                          location.pathname === "/primary" &&
+                          "bg-gray-200 dark:bg-gray-700"
+                        }`}
+          >
+            <span className="text-2xl">{<FcCallback />}</span>
+            <span
+              className={`${
+                !open && "hidden"
+              } origin-left duration-300 hover:block`}
+            >
+              Primary
+            </span>
+          </li>
+        </Link>
+
         <p className="text-black dark:text-white pt-4">Your Team</p>
         <div className="flex items-center font-normal rounded-lg p-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700">
           <span className="text-2xl">

@@ -44,3 +44,18 @@ select:-webkit-autofill:focus {
     color: white;
     transition: background-color 5000s ease-in-out 0s;
 }
+
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    /* background: rgb(80, 80, 98); */
+    border-radius: 5px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+    background-color: rgb(68 68 82);
+    border-radius: 14px;
+    border: 1px solid rgb(80, 80, 98);
+}
