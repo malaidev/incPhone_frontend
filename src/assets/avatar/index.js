@@ -15,6 +15,11 @@ import notes from "./text.svg"
 import urls from "./url.svg"
 import emojiSmile from "./emoji-smile.svg"
 import close from "./close.svg"
+import remove from "./remove.svg"
+import trash from "./trash.svg"
+import penFill from "./pen-fill.svg"
+import pencilFill from "./pencil-fill.svg"
+import pencilSquare from "./pencil-square.svg"
 
 const Avatars = {
     BagDash,
@@ -34,6 +39,11 @@ const Avatars = {
     urls,
     emojiSmile,
     close,
+    remove,
+    trash,
+    penFill,
+    pencilFill,
+    pencilSquare
 }
 
 export default Avatars

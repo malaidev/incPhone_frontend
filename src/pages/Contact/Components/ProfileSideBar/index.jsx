@@ -23,7 +23,7 @@ export const ProfileSideBar = (props) => {
     setSelectedIndex(false);
   };
   return (
-    <div className="col-span-1 text-black dark:text-white h-screen overflow-y-scroll overflow-x-hidden">
+    <div className="col-span-1 text-black dark:text-white h-screen overflow-y-scroll overflow-x-hidden section">
       {props.selectedContact !== undefined && (
         <div>
           <UserProfile
@@ -43,6 +43,7 @@ export const ProfileSideBar = (props) => {
           <Notes
             selectedContact={props.selectedContact}
             handleNewNote={props.handleNewNote}
+            handleDeleteProperty={props.handleDeleteProperty}
           />
         </div>
       )}

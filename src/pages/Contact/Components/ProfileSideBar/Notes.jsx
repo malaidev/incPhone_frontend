@@ -44,6 +44,13 @@ export const Notes = (props) => {
     }
   };
 
+  const handleRemoveNote = (noteId) => {
+    const contact_id = props.selectedContact.id;
+    const address_book_id = props.selectedContact.address_book_id;
+    // console.log("@@", item);
+    props.handleDeleteProperty(address_book_id, contact_id, "notes", noteId);
+  };
+
   useEffect(() => {
     setNotes(props.selectedContact.notes);
   });
@@ -98,6 +105,36 @@ export const Notes = (props) => {
                     className="text-black dark:text-darkGrayText"
                     alt="Avatar"
                     src={Avatars.copy}
+                    width="12"
+                    height="12"
+                  />
+                </button>
+                <button
+                  className="mx-[10px]"
+                  value={item.note ? item.note : ""}
+                  // onClick={(e) => {
+                  //   toastCopyAlert();
+                  //   navigator.clipboard.writeText(item.note ? item.note : "");
+                  // }}
+                >
+                  <img
+                    className="text-black dark:text-darkGrayText"
+                    alt="Avatar"
+                    src={Avatars.pencilFill}
+                    width="12"
+                    height="12"
+                  />
+                </button>
+                <button
+                  value={item.id}
+                  onClick={() => {
+                    handleRemoveNote(item.id);
+                  }}
+                >
+                  <img
+                    className="text-black dark:text-darkGrayText"
+                    alt="Avatar"
+                    src={Avatars.trash}
                     width="12"
                     height="12"
                   />

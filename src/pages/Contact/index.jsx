@@ -195,6 +195,43 @@ export const Contact = () => {
       });
   };
 
+  const handleDeleteProperty = (
+    address_book_id,
+    contact_id,
+    propertyField,
+    propertyId
+  ) => {
+    console.log(
+      "$$$$$$$$$$",
+      "https://addressbook.services.incphone.com/api/addressbooks/" +
+        address_book_id +
+        "/contacts/" +
+        contact_id +
+        "/" +
+        propertyField +
+        "/" +
+        propertyId
+    );
+    axios
+      .delete(
+        "https://addressbook.services.incphone.com/api/addressbooks/" +
+          address_book_id +
+          "/contacts/" +
+          contact_id +
+          "/" +
+          propertyField +
+          "/" +
+          propertyId
+      )
+      .then((res) => {
+        console.log("!!!!!!!!!!!", res.data);
+        getContactData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="w-full min-h-full grid grid-cols-3">
       <ContactLists
@@ -226,6 +263,7 @@ export const Contact = () => {
           handleAddProperty={handleAddProperty}
           handleNewNote={handleNewNote}
           handleUpdateProperty={handleUpdateProperty}
+          handleDeleteProperty={handleDeleteProperty}
         />
       )}
     </div>
