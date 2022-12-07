@@ -106,10 +106,10 @@ export const ContactLists = (props) => {
               const last_name_Index = contact.last_name
                 .toLowerCase()
                 .includes(query.toLowerCase());
-              const business_name_Index = contact.business_name
-                .toLowerCase()
-                .includes(query.toLowerCase());
-              if (first_name_Index || last_name_Index || business_name_Index) {
+              // const business_name_Index = contact.business_name
+              //   .toLowerCase()
+              //   .includes(query.toLowerCase());
+              if (first_name_Index || last_name_Index) {
                 // setFilterStatus(true);
                 return contact;
               }
