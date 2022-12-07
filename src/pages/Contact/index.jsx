@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from "../../components/Navbar";
-import { AiOutlineSearch } from "react-icons/ai";
-import { ProfileSideBar } from "./Components";
+
+import { ProfileSideBar } from "./Components/ProfileSideBar";
+import { ContactLists } from "./Components/ContactLists";
 import { Avatars } from "../../assets";
 import "./index.css";
 
@@ -13,6 +13,9 @@ export const Contact = () => {
 
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [selectedContactIds, setSelectedContactIds] = useState([]);
+  const [filterStatus, setFilterStatus] = useState(true);
+  const [allSearchDatas, setAllSearchDatas] = useState([]);
+  const [newContactStatus, setNewContactStatus] = useState(false);
 
   const getContactData = () => {
     axios
@@ -22,6 +25,19 @@ export const Contact = () => {
       .then((res) => {
         setContacts(res.data);
         console.log("@@@@", res.data);
+
+        let tempDatas = [];
+        res.data.map((item) => {
+          const element = {
+            address_book_id: item.address_book_id,
+            id: item.id,
+            first_name: item.first_name,
+            last_name: item.last_name,
+            business_name: item.business_name,
+          };
+          tempDatas.push(element);
+        });
+        setAllSearchDatas(tempDatas);
       })
       .catch((err) => {
         console.log(err);
@@ -59,6 +75,10 @@ export const Contact = () => {
         selectedContactIds.filter((item) => item !== e.target.id)
       );
     }
+  };
+
+  const handleNewContact = (value) => {
+    setNewContactStatus(value);
   };
 
   useEffect(() => {
@@ -120,10 +140,14 @@ export const Contact = () => {
   ) => {
     console.log(
       "$$$$$$$$$$",
-      address_book_id,
-      contact_id,
-      propertyId,
-      propertyField,
+      "https://addressbook.services.incphone.com/api/addressbooks/" +
+        address_book_id +
+        "/contacts/" +
+        contact_id +
+        "/" +
+        propertyField +
+        "/" +
+        propertyId,
       propertyValue
     );
     axios
@@ -149,85 +173,26 @@ export const Contact = () => {
 
   return (
     <div className="w-full min-h-full grid grid-cols-3">
-      <div className="col-span-2 border-r border-gray-300 dark:border-gray-600 custom">
-        <Navbar name="Contacts" />
-        <div className="flex flex-col mx-2">
-          <div className="my-2 flex items-center p-1 text-base cursor-pointer mt-1 false">
-            <input
-              type="checkbox"
-              className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
-              checked={isCheckAll}
-              onChange={(e) => {
-                handleAllChecked(e);
-              }}
-            />
-            <label></label>
-            <span className="text-black dark:text-white mr-3">
-              <AiOutlineSearch />
-            </span>
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full bg-white dark:bg-darkBack outline-none text-black dark:text-white"
-            />
-          </div>
-          {contacts.map((contact, index) => {
-            return (
-              <div
-                id={contact.id}
-                className="flex items-center gap-x-6 p-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
-              mt-1 false"
-                key={contact.id}
-                onClick={(e) => {
-                  handleCheckedContact(e, index);
-                }}
-              >
-                <div className="flex align-center">
-                  <div>
-                    <input
-                      id={contact.id}
-                      type="checkbox"
-                      className="styled-checkbox cursor-pointer z-10 w-5 h-5 absolute opacity-0"
-                      checked={selectedContactIds.includes(contact.id)}
-                      onChange={(e) => {
-                        handleCheckedContact(e, index);
-                      }}
-                    />
-                    <label></label>
-                  </div>
-
-                  <span className="text-black dark:text-white mr-1">
-                    {contact.first_name + " " + contact.last_name}
-                  </span>
-
-                  <img
-                    className="text-black dark:text-white ml-[16px] mr-[5px]"
-                    alt="Avatar"
-                    src={Avatars.BagDash}
-                    width="16"
-                    height="14"
-                  />
-
-                  <span className="text-gray-500 text-[12px]">
-                    {contact.business_name}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      {contacts[selectedIndex] == null ? (
+      <ContactLists
+        contacts={contacts}
+        isCheckAll={isCheckAll}
+        selectedContactIds={selectedContactIds}
+        allSearchDatas={allSearchDatas}
+        newContactStatus={newContactStatus}
+        setFilterStatus={setFilterStatus}
+        handleAllChecked={handleAllChecked}
+        handleCheckedContact={handleCheckedContact}
+        handleNewContact={handleNewContact}
+      />
+      {newContactStatus ? (
         <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
-          <img
-            alt="Avatar"
-            src={Avatars.PersonCircle}
-            width="32"
-            height="32"
-          />
-          <span className="text-darkGrayText">
-            No contact selected
-          </span>
+          <img alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
+          <span className="text-darkGrayText">Create New Contact</span>
+        </div>
+      ) : contacts[selectedIndex] == null ? (
+        <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
+          <img alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
+          <span className="text-darkGrayText">No contact selected</span>
         </div>
       ) : (
         <ProfileSideBar
@@ -238,6 +203,21 @@ export const Contact = () => {
           handleUpdateProperty={handleUpdateProperty}
         />
       )}
+
+      {/* {contacts[selectedIndex] == null ? (
+        <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
+          <img alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
+          <span className="text-darkGrayText">No contact selected</span>
+        </div>
+      ) : (
+        <ProfileSideBar
+          selectedContact={selectedContact}
+          handleUpdateContacts={handleUpdateContacts}
+          handleAddProperty={handleAddProperty}
+          handleNewNote={handleNewNote}
+          handleUpdateProperty={handleUpdateProperty}
+        />
+      )} */}
     </div>
   );
 };
