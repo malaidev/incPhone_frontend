@@ -14,6 +14,7 @@ import phones from "./telephone.svg"
 import notes from "./text.svg"
 import urls from "./url.svg"
 import emojiSmile from "./emoji-smile.svg"
+import close from "./close.svg"
 
 const Avatars = {
     BagDash,
@@ -31,7 +32,8 @@ const Avatars = {
     phones,
     notes,
     urls,
-    emojiSmile
+    emojiSmile,
+    close,
 }
 
 export default Avatars

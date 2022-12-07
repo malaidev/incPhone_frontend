@@ -20,21 +20,23 @@ const Property = (props) => {
   const propertyValue = props.item[1];
   const uniqueKey = Math.floor(Math.random() * 100);
 
-  const handleUpdate = (e, subItem) => {
+  const handleUpdate = (e, subItem, objectKey) => {
     if (e.key === "Enter") {
-      console.log("###", subItem);
       const contact_id = props.selectedContact.id;
       const address_book_id = props.selectedContact.address_book_id;
       const propertyId = subItem.id;
       const propertyField = e.target.name;
       const propertyValue = e.target.value;
 
+      const updateValue = {
+        [objectKey]: propertyValue,
+      };
       props.handleUpdateProperty(
         address_book_id,
         contact_id,
         propertyId,
         propertyField,
-        propertyValue
+        updateValue
       );
     }
   };
@@ -79,7 +81,13 @@ const Property = (props) => {
                 ? props.subItem[propertiesOrderObject[props.item[0]]]
                 : props.item[1]
             }
-            onKeyDown={(e) => handleUpdate(e, props.subItem)}
+            onKeyDown={(e) =>
+              handleUpdate(
+                e,
+                props.subItem,
+                propertiesOrderObject[props.item[0]]
+              )
+            }
           />
 
           <button

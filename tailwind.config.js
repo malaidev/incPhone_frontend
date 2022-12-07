@@ -20,7 +20,6 @@ module.exports = {
                 white: "#ffffff",
                 black: "#09090c",
                 primary: "#A27AFF",
-                darkGray: "#121212",
 
                 brightRed: "hsl(12, 88%, 59%)",
                 brightRedLight: "hsl(12, 88%, 69%)",
@@ -34,6 +33,10 @@ module.exports = {
                 darkBack: '#1a1925',
                 darkSidebarBack: '#1d1d2a',
                 darkGrayText: '#9797B2',
+                cgray: '#f3f3f5',
+                hoverGray: '#e9e9ed',
+                darkGray: '#252434',
+                darkHoverGray: '#2d2d40',
             },
         },
     },

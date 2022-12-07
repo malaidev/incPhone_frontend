@@ -1,5 +1,5 @@
-import React from "react"
-import Toggle from "./ThemeToggle"
+import React from "react";
+import Toggle from "../components/ThemeToggle";
 
 const Navbar = (props) => {
   return (
@@ -16,7 +16,7 @@ const Navbar = (props) => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
