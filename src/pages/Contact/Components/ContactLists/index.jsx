@@ -146,17 +146,23 @@ export const ContactLists = (props) => {
                     {contact.first_name + " " + contact.last_name}
                   </span>
 
-                  <img
-                    className="text-black dark:text-white ml-[16px] mr-[5px]"
-                    alt="Avatar"
-                    src={Avatars.BagDash}
-                    width="16"
-                    height="14"
-                  />
+                  {contact.business_name ? (
+                    <div className="flex">
+                      <img
+                        className="text-black dark:text-white ml-[16px] mr-[5px]"
+                        alt="Avatar"
+                        src={Avatars.BagDash}
+                        width="16"
+                        height="14"
+                      />
 
-                  <span className="text-gray-500 text-[12px]">
-                    {contact.business_name}
-                  </span>
+                      <span className="text-gray-500 text-[12px]">
+                        {contact.business_name}
+                      </span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             );
