@@ -58,4 +58,6 @@ select:-webkit-autofill:focus {
     background-color: rgb(68 68 82);
     border-radius: 14px;
     border: 1px solid rgb(80, 80, 98);
+    position: relative;
+    bottom: 0px;
 }
