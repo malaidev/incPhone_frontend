@@ -131,6 +131,36 @@ const Property = (props) => {
     }
   };
 
+  const propertyValueComponent = () => {
+    if (Array.isArray(propertyValue)) {
+      if (propertyName === "dates") {
+        if (props.subItem[propertiesOrderObject[propertyName]]) {
+          return props.subItem[propertiesOrderObject[propertyName]].split(
+            "T"
+          )[0];
+        } else {
+          return <span className="text-[#6e6c89]">Set a date...</span>;
+        }
+      } else {
+        if (props.subItem[propertiesOrderObject[propertyName]]) {
+          return props.subItem[propertiesOrderObject[propertyName]];
+        } else {
+          return (
+            <span className="text-[#6e6c89]">
+              Set a {propertiesOrderObject[propertyName]}...
+            </span>
+          );
+        }
+      }
+    } else {
+      if (propertyValue) {
+        return propertyValue;
+      } else {
+        return <span className="text-[#6e6c89]">Set a {propertyName}...</span>;
+      }
+    }
+  };
+
   return (
     <div className="flex relative px-[4px]" key={propertyName + uniqueKey}>
       {editTitleId === titleId ? (
@@ -297,15 +327,7 @@ const Property = (props) => {
               )
             }
           >
-            {Array.isArray(propertyValue)
-              ? propertyName === "dates"
-                ? props.subItem[propertiesOrderObject[propertyName]]
-                  ? props.subItem[propertiesOrderObject[propertyName]].split(
-                      "T"
-                    )[0]
-                  : ""
-                : props.subItem[propertiesOrderObject[propertyName]]
-              : propertyValue}
+            {propertyValueComponent()}
           </div>
         )}
 
