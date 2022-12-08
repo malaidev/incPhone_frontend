@@ -20,6 +20,8 @@ import trash from "./trash.svg"
 import penFill from "./pen-fill.svg"
 import pencilFill from "./pencil-fill.svg"
 import pencilSquare from "./pencil-square.svg"
+import chatSquare from "./chat-square.svg"
+import emailOutline from "./email-outline.svg"
 
 const Avatars = {
     BagDash,
@@ -43,7 +45,9 @@ const Avatars = {
     trash,
     penFill,
     pencilFill,
-    pencilSquare
+    pencilSquare,
+    chatSquare,
+    emailOutline,
 }
 
 export default Avatars

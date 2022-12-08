@@ -236,7 +236,7 @@ const Property = (props) => {
           unClickedPropertyId === clickedPropertyId
             ? ""
             : "hover:bg-[#e5e7eb] dark:hover:bg-[#252434]"
-        }  contactPropertyDiv`}
+        }  contactPropertyDiv group/item`}
       >
         {unClickedPropertyId === clickedPropertyId ? (
           (() => {
@@ -332,24 +332,112 @@ const Property = (props) => {
           </div>
         )}
 
-        <button
-          className={`${
-            propertyDefaultValue ? "flex" : "hidden"
-          } absolute right-[0px]`}
-          value={propertyDefaultValue}
-          onClick={(e) => {
-            toastAlert();
-            navigator.clipboard.writeText(propertyDefaultValue);
-          }}
-        >
-          <img
-            className="text-black dark:text-darkGrayText"
-            alt="Avatar"
-            src={Avatars.copy}
-            width="12"
-            height="12"
-          />
-        </button>
+        {(() => {
+          switch (propertyName) {
+            case "phones":
+              return (
+                <div className={`${propertyDefaultValue ? "flex" : "hidden"}`}>
+                  <button
+                    className="group/edit invisible hover:bg-primary group-hover/item:visible w-[15px] h-[15px] rounded-full"
+                    value={propertyDefaultValue}
+                  >
+                    <img
+                      className="text-black dark:text-darkGrayText m-auto"
+                      alt="Avatar"
+                      src={Avatars.phones}
+                      width="12"
+                      height="12"
+                    />
+                  </button>
+
+                  <button
+                    className="group/edit invisible hover:bg-primary group-hover/item:visible w-[15px] h-[15px] rounded-full mx-[3px]"
+                    value={propertyDefaultValue}
+                  >
+                    <img
+                      className="text-black dark:text-darkGrayText m-auto"
+                      alt="Avatar"
+                      src={Avatars.chatSquare}
+                      width="12"
+                      height="12"
+                    />
+                  </button>
+
+                  <button
+                    className="group/edit invisible hover:bg-primary group-hover/item:visible w-[15px] h-[15px] rounded-full mx-[3px]"
+                    value={propertyDefaultValue}
+                    onClick={(e) => {
+                      toastAlert();
+                      navigator.clipboard.writeText(propertyDefaultValue);
+                    }}
+                  >
+                    <img
+                      className="text-black dark:text-darkGrayText"
+                      alt="Avatar"
+                      src={Avatars.copy}
+                      width="12"
+                      height="12"
+                    />
+                  </button>
+                </div>
+              );
+            case "emails":
+              return (
+                <div className={`${propertyDefaultValue ? "flex" : "hidden"}`}>
+                  <button
+                    className="group/edit invisible hover:bg-primary group-hover/item:visible w-[15px] h-[15px] rounded-full mx-[3px]"
+                    value={propertyDefaultValue}
+                  >
+                    <img
+                      className="text-black dark:text-darkGrayText m-auto"
+                      alt="Avatar"
+                      src={Avatars.emailOutline}
+                      width="12"
+                      height="12"
+                    />
+                  </button>
+
+                  <button
+                    className="group/edit invisible hover:bg-primary group-hover/item:visible w-[15px] h-[15px] rounded-full mx-[3px]"
+                    value={propertyDefaultValue}
+                    onClick={(e) => {
+                      toastAlert();
+                      navigator.clipboard.writeText(propertyDefaultValue);
+                    }}
+                  >
+                    <img
+                      className="text-black dark:text-darkGrayText"
+                      alt="Avatar"
+                      src={Avatars.copy}
+                      width="12"
+                      height="12"
+                    />
+                  </button>
+                </div>
+              );
+            default:
+              return (
+                <div className={`${propertyDefaultValue ? "flex" : "hidden"}`}>
+                  <button
+                    className="group/edit invisible hover:bg-primary group-hover/item:visible w-[15px] h-[15px] rounded-full mx-[3px]"
+                    value={propertyDefaultValue}
+                    onClick={(e) => {
+                      toastAlert();
+                      navigator.clipboard.writeText(propertyDefaultValue);
+                    }}
+                  >
+                    <img
+                      className="text-black dark:text-darkGrayText"
+                      alt="Avatar"
+                      src={Avatars.copy}
+                      width="12"
+                      height="12"
+                    />
+                  </button>
+                </div>
+              );
+          }
+        })()}
       </div>
 
       {toastStatus ? (

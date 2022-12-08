@@ -24,6 +24,7 @@ const PhoneNumber = (props) => {
       "phones",
       updateValue
     );
+    props.setClickedPropertyId("");
   };
 
   const handleValidate = (value) => {
