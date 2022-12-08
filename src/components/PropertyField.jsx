@@ -119,7 +119,17 @@ const Property = (props) => {
               >
                 Save
               </div>
-              <div className="w-[90%] bg-[#f3f3f5] dark:bg-[#21212f] hover:rounded-lg dark:hover:bg-[#2a2a3c] cursor-pointer h-[30px] px-[10px] m-auto text-[13px] leading-[2]">
+              <div
+                className="w-[90%] bg-[#f3f3f5] dark:bg-[#21212f] hover:rounded-lg dark:hover:bg-[#2a2a3c] cursor-pointer h-[30px] px-[10px] m-auto text-[13px] leading-[2]"
+                onClick={() => {
+                  props.handleDeleteProperty(
+                    props.selectedContact.address_book_id,
+                    props.selectedContact.id,
+                    propertyName,
+                    titleId
+                  );
+                }}
+              >
                 Delete
               </div>
             </div>
@@ -239,6 +249,7 @@ const PropertyField = (props) => {
             subItem={subItem}
             selectedContact={props.selectedContact}
             handleUpdateProperty={props.handleUpdateProperty}
+            handleDeleteProperty={props.handleDeleteProperty}
           />
         </div>
       );
@@ -249,6 +260,7 @@ const PropertyField = (props) => {
         item={props.item}
         selectedContact={props.selectedContact}
         handleUpdateProperty={props.handleUpdateProperty}
+        handleDeleteProperty={props.handleDeleteProperty}
       />
     );
   }

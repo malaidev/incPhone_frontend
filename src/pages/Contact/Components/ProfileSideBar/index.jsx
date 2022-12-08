@@ -38,6 +38,7 @@ export const ProfileSideBar = (props) => {
             selectedContact={props.selectedContact}
             handleUpdateProperty={props.handleUpdateProperty}
             handleAddProperty={props.handleAddProperty}
+            handleDeleteProperty={props.handleDeleteProperty}
           />
 
           <Notes
