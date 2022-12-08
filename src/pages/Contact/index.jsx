@@ -17,8 +17,9 @@ export const Contact = () => {
   const [filterStatus, setFilterStatus] = useState(true);
   const [allSearchDatas, setAllSearchDatas] = useState([]);
   const [newContactStatus, setNewContactStatus] = useState(false);
+  // const [isNewContactCreated, setIsNewContactCreated] = useState(false);
 
-  const getContactData = () => {
+  const getContactData = (isNewContactCreated) => {
     axios
       .get(
         "https://addressbook.services.incphone.com/api/addressbooks/771967dd-b03e-4a0f-b527-17ab71c6735a/contacts"
@@ -39,6 +40,14 @@ export const Contact = () => {
           tempDatas.push(element);
         });
         setAllSearchDatas(tempDatas);
+
+        //Created new Contact right away
+        if (isNewContactCreated) {
+          const createdContactIndex = res.data.length * 1 - 1;
+          setSelectedContact(contacts[createdContactIndex]);
+          setSelectedIndex(createdContactIndex);
+          setNewContactStatus(false);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -107,7 +116,11 @@ export const Contact = () => {
         newContactValue
       )
       .then((res) => {
-        getContactData();
+        getContactData(true);
+
+        // const createdNewContactId = res.data.id;
+        // setIsNewContactCreated(true);
+        // console.log("createdNewContact", res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -223,6 +236,7 @@ export const Contact = () => {
     <div className="w-full min-h-full grid grid-cols-3">
       <ContactLists
         contacts={contacts}
+        selectedIndex={selectedIndex}
         isCheckAll={isCheckAll}
         selectedContactIds={selectedContactIds}
         allSearchDatas={allSearchDatas}

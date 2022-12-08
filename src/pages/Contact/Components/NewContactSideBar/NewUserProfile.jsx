@@ -16,7 +16,6 @@ export const NewUserProfile = (props) => {
   } = props;
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
-  const [business_name, setBusinessName] = useState("");
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -30,7 +29,6 @@ export const NewUserProfile = (props) => {
     const newContact = {
       first_name: first_name,
       last_name: last_name,
-      business_name: business_name,
     };
 
     handleSaveNewContact(address_book_id, newContact);
@@ -51,7 +49,7 @@ export const NewUserProfile = (props) => {
                 setAddNewNameToogle(false);
               }}
             >
-              <div className="border-b border-gray-300 dark:border-gray-600 pb-[12px]">
+              <div className="border-b border-gray-300 dark:border-gray-600 pb-[31px]">
                 <div className="w-[270px] style-editName style-darkShadow">
                   <label className="text-darkGrayText text-[13px] font-[450]">
                     First name
@@ -75,18 +73,6 @@ export const NewUserProfile = (props) => {
                     placeholder="Add a last name..."
                     defaultValue=""
                     onChange={(e) => setLastName(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <label className="text-darkGrayText text-[13px] font-[450]">
-                    Business name
-                  </label>
-                  <input
-                    id="edit-business-name"
-                    name="business_name"
-                    className="text-black dark:text-white style-editNameInput"
-                    placeholder="Add a business name..."
-                    defaultValue=""
-                    onChange={(e) => setBusinessName(e.target.value)}
                     onKeyDown={handleKeyDown}
                   />
                 </div>
