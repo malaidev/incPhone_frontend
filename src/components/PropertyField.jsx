@@ -248,7 +248,7 @@ const Property = (props) => {
                   //     setClickedPropertyId("");
                   //   }}
                   // >
-                  <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] ">
+                  <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] w-[100%]">
                     <PhoneNumber
                       subItem={props.subItem}
                       selectedContact={props.selectedContact}
@@ -265,7 +265,7 @@ const Property = (props) => {
                       setClickedPropertyId("");
                     }}
                   >
-                    <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] ">
+                    <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] w-[100%]">
                       <DatePicker
                         className="w-[inherit] border-0 outline-none py-[4px] text-[0.8rem] !bg-transparent ml-[5px] "
                         autoComplete="off"
@@ -292,11 +292,12 @@ const Property = (props) => {
                       setClickedPropertyId("");
                     }}
                   >
-                    <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] ">
+                    <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] w-[100%]">
                       <input
                         name={propertyName}
                         className="w-[inherit] border-0 outline-none px-[15px] text-[14px] !bg-transparent my-[5px] "
                         autoComplete="off"
+                        autoFocus
                         defaultValue={
                           Array.isArray(propertyValue)
                             ? props.subItem[propertiesOrderObject[propertyName]]
