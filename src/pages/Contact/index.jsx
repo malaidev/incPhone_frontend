@@ -166,11 +166,9 @@ export const Contact = () => {
       "https://addressbook.services.incphone.com/api/addressbooks/" +
       address_book_id +
       "/contacts/" +
-      contact_id +
-      "/" +
-      propertyField;
+      contact_id;
     if (propertyId) {
-      apiUrl = apiUrl + "/" + propertyId;
+      apiUrl = apiUrl + "/" + propertyField + "/" + propertyId;
     }
     console.log("APIURL", apiUrl, propertyValue);
     axios
