@@ -39,7 +39,7 @@ export const Notes = (props) => {
     let codesArray = [];
     sym.forEach((el) => codesArray.push("0x" + el));
     let emoji = String.fromCodePoint(...codesArray);
-    setUpdateNoteContent(noteContent + emoji);
+    setUpdateNoteContent(updateNoteContent + emoji);
     setShowUpdateEmojis(!showUpdateEmojis);
   };
 
@@ -73,7 +73,6 @@ export const Notes = (props) => {
       note: updateNoteContent,
     };
 
-    console.log("@#$", newNote);
     props.handleUpdateProperty(
       address_book_id,
       contact_id,
@@ -88,7 +87,6 @@ export const Notes = (props) => {
   const handleRemoveNote = (noteId) => {
     const contact_id = props.selectedContact.id;
     const address_book_id = props.selectedContact.address_book_id;
-    // console.log("@@", item);
     props.handleDeleteProperty(address_book_id, contact_id, "notes", noteId);
   };
 
@@ -124,7 +122,7 @@ export const Notes = (props) => {
                   id="notes"
                   rows="1"
                   className="block p-1 w-full text-sm text-gray-900 bg-gray-50 dark:bg-darkBack dark:placeholder-gray-600 dark:text-white outline-none"
-                  defaultValue={item.note ? item.note : ""}
+                  value={updateNoteContent}
                   placeholder="Write a note..."
                   onChange={(e) => handleSetNoteContent(e, "Update")}
                   onKeyDown={handleUpdateKeyDown}
@@ -200,6 +198,9 @@ export const Notes = (props) => {
                     value={item.note}
                     onClick={() => {
                       setEditNoteId(item.id);
+                      if (item.note) {
+                        setUpdateNoteContent(item.note);
+                      }
                     }}
                   >
                     <img
@@ -277,10 +278,10 @@ export const Notes = (props) => {
         <div className="UpdateEmojiDiv">
           <OutsideClickHandler
             onOutsideClick={() => {
-              setShowEmojis(false);
+              setShowUpdateEmojis(false);
             }}
           >
-            {showEmojis && (
+            {showUpdateEmojis && (
               <div className="absolute right-[100px] bottom-[60px]">
                 <Picker
                   id="emojiUpdatePicker"
