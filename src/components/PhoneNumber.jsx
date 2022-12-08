@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import Input from "react-phone-number-input/input";
 import "react-phone-number-input/style.css";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const PhoneNumber = (props) => {
   const {
@@ -32,34 +33,40 @@ const PhoneNumber = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="user-info-form ">
-      <div>
-        <Controller
-          name="phone-input"
-          control={control}
-          rules={{
-            validate: (value) => handleValidate(value),
-          }}
-          render={({ field: { onChange, value } }) => (
-            <Input
-              id="phone-input"
-              className="w-[inherit] border-0 outline-none py-[4px] text-[0.8rem] !bg-transparent ml-[5px] "
-              international
-              initialvalueformat="national"
-              value={props.subItem.phone_number}
-              onChange={onChange}
-              defaultCountry="US"
-              autoComplete="off"
-            />
+    <OutsideClickHandler
+      onOutsideClick={() => {
+        props.setClickedPropertyId("");
+      }}
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="user-info-form ">
+        <div>
+          <Controller
+            name="phone-input"
+            control={control}
+            rules={{
+              validate: (value) => handleValidate(value),
+            }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                id="phone-input"
+                className="w-[inherit] border-0 outline-none py-[4px] text-[0.8rem] !bg-transparent ml-[5px] "
+                international
+                initialvalueformat="national"
+                value={props.subItem.phone_number}
+                onChange={onChange}
+                defaultCountry="US"
+                autoComplete="off"
+              />
+            )}
+          />
+          {errors["phone-input"] && (
+            <p className="error-message text-[#ff0000] text-[10px] text-center">
+              Invalid Phone
+            </p>
           )}
-        />
-        {errors["phone-input"] && (
-          <p className="error-message text-[#ff0000] text-[10px] text-center">
-            Invalid Phone
-          </p>
-        )}
-      </div>
-    </form>
+        </div>
+      </form>
+    </OutsideClickHandler>
   );
 };
 

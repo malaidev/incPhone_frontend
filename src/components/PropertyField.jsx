@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { Avatars } from "../assets";
 import ToastAlert from "./ToastAlert";
@@ -19,6 +21,8 @@ const Property = (props) => {
   const [toastStatus, setToast] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [editTitleId, setEditTitleId] = useState();
+  const [clickedPropertyId, setClickedPropertyId] = useState();
+  const [date, setDate] = useState();
 
   const propertyName = props.item[0];
   const propertyValue = props.item[1];
@@ -30,6 +34,10 @@ const Property = (props) => {
   const titleId = propertyValueType
     ? props.subItem.id
     : props.selectedContact.id;
+
+  const unClickedPropertyId = propertyValueType
+    ? propertyName + props.subItem.id
+    : propertyName + props.selectedContact.id;
 
   const uniqueKey = Math.floor(Math.random() * 100);
 
@@ -86,8 +94,26 @@ const Property = (props) => {
           updateValue
         );
       }
-      console.log("*****", props.selectedContact);
     }
+  };
+
+  const handleUpdateDate = (date, subItem) => {
+    setDate(date);
+    const contact_id = props.selectedContact.id;
+    const address_book_id = props.selectedContact.address_book_id;
+    const propertyId = subItem.id;
+    const propertyField = "dates";
+    const updateValue = {
+      date: date,
+    };
+    props.handleUpdateProperty(
+      address_book_id,
+      contact_id,
+      propertyId,
+      propertyField,
+      updateValue
+    );
+    setClickedPropertyId("");
   };
 
   const toastAlert = () => {
@@ -96,6 +122,13 @@ const Property = (props) => {
     setTimeout(() => {
       setToast(false);
     }, 1500);
+  };
+
+  const handleEditPropertyValue = (clickedPropertyId) => {
+    setClickedPropertyId(clickedPropertyId);
+    if (propertyName === "dates") {
+      setDate(new Date(props.subItem.date));
+    }
   };
 
   return (
@@ -138,6 +171,7 @@ const Property = (props) => {
       ) : (
         ""
       )}
+
       <div
         className={`${
           propertyValueType
@@ -166,40 +200,114 @@ const Property = (props) => {
             : propertyName.charAt(0).toUpperCase() + propertyName.slice(1)}
         </span>
       </div>
-      <div className="flex relative items-center justify-between w-[100%] hover:bg-[#e5e7eb] dark:hover:bg-[#252434] contactPropertyDiv">
-        {(() => {
-          switch (propertyName) {
-            case "phones":
-              return (
-                <PhoneNumber
-                  subItem={props.subItem}
-                  selectedContact={props.selectedContact}
-                  handleUpdateProperty={props.handleUpdateProperty}
-                />
-              );
-            default:
-              return (
-                <input
-                  name={propertyName}
-                  className="w-[inherit] border-0 outline-none py-[4px] text-[0.8rem] !bg-transparent ml-[5px] "
-                  autoComplete="off"
-                  defaultValue={
-                    Array.isArray(propertyValue)
-                      ? props.subItem[propertiesOrderObject[propertyName]]
-                      : propertyValue
-                  }
-                  onKeyDown={(e) =>
-                    handleUpdate(
-                      e,
-                      Array.isArray(propertyValue),
-                      props.subItem,
-                      propertiesOrderObject[propertyName]
-                    )
-                  }
-                />
-              );
-          }
-        })()}
+
+      <div
+        className={`flex relative items-center justify-between w-[100%] ${
+          unClickedPropertyId === clickedPropertyId
+            ? ""
+            : "hover:bg-[#e5e7eb] dark:hover:bg-[#252434]"
+        }  contactPropertyDiv`}
+      >
+        {unClickedPropertyId === clickedPropertyId ? (
+          (() => {
+            switch (propertyName) {
+              case "phones":
+                return (
+                  // <OutsideClickHandler
+                  //   onOutsideClick={() => {
+                  //     setClickedPropertyId("");
+                  //   }}
+                  // >
+                  <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] ">
+                    <PhoneNumber
+                      subItem={props.subItem}
+                      selectedContact={props.selectedContact}
+                      handleUpdateProperty={props.handleUpdateProperty}
+                      setClickedPropertyId={setClickedPropertyId}
+                    />
+                  </div>
+                  // </OutsideClickHandler>
+                );
+              case "dates":
+                return (
+                  <OutsideClickHandler
+                    onOutsideClick={() => {
+                      setClickedPropertyId("");
+                    }}
+                  >
+                    <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] ">
+                      <DatePicker
+                        className="w-[inherit] border-0 outline-none py-[4px] text-[0.8rem] !bg-transparent ml-[5px] "
+                        autoComplete="off"
+                        dateFormat="yyyy-MM-dd"
+                        selected={date}
+                        onChange={(date) =>
+                          handleUpdateDate(date, props.subItem)
+                        }
+                      >
+                        <button
+                          className="rounded-lg border border-solid border-inherit w-[-webkit-fill-available] py-[3px] mx-[5px] my-[3px]"
+                          onClick={() => handleUpdateDate(null, props.subItem)}
+                        >
+                          Clear
+                        </button>
+                      </DatePicker>
+                    </div>
+                  </OutsideClickHandler>
+                );
+              default:
+                return (
+                  <OutsideClickHandler
+                    onOutsideClick={() => {
+                      setClickedPropertyId("");
+                    }}
+                  >
+                    <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] ">
+                      <input
+                        name={propertyName}
+                        className="w-[inherit] border-0 outline-none px-[15px] text-[14px] !bg-transparent my-[5px] "
+                        autoComplete="off"
+                        defaultValue={
+                          Array.isArray(propertyValue)
+                            ? props.subItem[propertiesOrderObject[propertyName]]
+                            : propertyValue
+                        }
+                        onKeyDown={(e) =>
+                          handleUpdate(
+                            e,
+                            Array.isArray(propertyValue),
+                            props.subItem,
+                            propertiesOrderObject[propertyName]
+                          )
+                        }
+                      />
+                    </div>
+                  </OutsideClickHandler>
+                );
+            }
+          })()
+        ) : (
+          <div
+            className="w-[inherit] border-0 outline-none py-[4px] text-[0.8rem] !bg-transparent ml-[5px] min-h-[25px]"
+            onClick={() =>
+              handleEditPropertyValue(
+                propertyValueType
+                  ? propertyName + props.subItem.id
+                  : propertyName + props.selectedContact.id
+              )
+            }
+          >
+            {Array.isArray(propertyValue)
+              ? propertyName === "dates"
+                ? props.subItem[propertiesOrderObject[propertyName]]
+                  ? props.subItem[propertiesOrderObject[propertyName]].split(
+                      "T"
+                    )[0]
+                  : ""
+                : props.subItem[propertiesOrderObject[propertyName]]
+              : propertyValue}
+          </div>
+        )}
 
         <button
           className={`${
@@ -209,10 +317,6 @@ const Property = (props) => {
           onClick={(e) => {
             toastAlert();
             navigator.clipboard.writeText(propertyDefaultValue);
-            // window.clipboardData.setData(
-            //   "Text",
-            //   "Copy this text to clipboard"
-            // );
           }}
         >
           <img
@@ -224,6 +328,7 @@ const Property = (props) => {
           />
         </button>
       </div>
+
       {toastStatus ? (
         <ToastAlert
           text="Copied to clipboard"
