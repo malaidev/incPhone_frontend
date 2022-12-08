@@ -10,6 +10,7 @@ import "../../index.css";
 export const ContactLists = (props) => {
   const {
     contacts,
+    selectedIndex,
     isCheckAll,
     selectedContactIds,
     allSearchDatas,
@@ -121,8 +122,12 @@ export const ContactLists = (props) => {
             return (
               <div
                 id={contact.id}
-                className="flex items-center gap-x-6 p-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
-              mt-1 false"
+                className={`${
+                  index === selectedIndex
+                    ? "bg-[#f3f3f5] dark:bg-[#252434]"
+                    : ""
+                } flex items-center gap-x-6 p-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+              mt-1 false`}
                 key={contact.id}
                 onClick={(e) => {
                   handleCheckedContact(e, index);
