@@ -162,30 +162,19 @@ export const Contact = () => {
     propertyField,
     propertyValue
   ) => {
-    console.log(
-      "$$$$$$$$$$",
+    let apiUrl =
       "https://addressbook.services.incphone.com/api/addressbooks/" +
-        address_book_id +
-        "/contacts/" +
-        contact_id +
-        "/" +
-        propertyField +
-        "/" +
-        propertyId,
-      propertyValue
-    );
+      address_book_id +
+      "/contacts/" +
+      contact_id +
+      "/" +
+      propertyField;
+    if (propertyId) {
+      apiUrl = apiUrl + "/" + propertyId;
+    }
+    console.log("APIURL", apiUrl, propertyValue);
     axios
-      .put(
-        "https://addressbook.services.incphone.com/api/addressbooks/" +
-          address_book_id +
-          "/contacts/" +
-          contact_id +
-          "/" +
-          propertyField +
-          "/" +
-          propertyId,
-        propertyValue
-      )
+      .put(apiUrl, propertyValue)
       .then((res) => {
         console.log("!!!!!!!!!!!", res.data);
         getContactData();

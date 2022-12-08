@@ -21,7 +21,7 @@ export const UserProfile = (props) => {
           {props.selectedIndex == true ? (
             <OutsideClickHandler
               onOutsideClick={() => {
-                props.handleDivBlur()
+                props.handleDivBlur();
               }}
             >
               <div
