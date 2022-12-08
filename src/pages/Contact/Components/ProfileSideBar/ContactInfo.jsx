@@ -61,6 +61,7 @@ export const ContactInfo = (props) => {
               key={key}
               selectedContact={props.selectedContact}
               handleUpdateProperty={props.handleUpdateProperty}
+              handleDeleteProperty={props.handleDeleteProperty}
             />
           );
         })}
