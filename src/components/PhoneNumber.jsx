@@ -56,6 +56,7 @@ const PhoneNumber = (props) => {
                 onChange={onChange}
                 defaultCountry="US"
                 autoComplete="off"
+                autoFocus
               />
             )}
           />
