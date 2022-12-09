@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 
+import { ContactContext } from "../..";
 import { Avatars } from "../../../../assets";
 import Logo from "../../../../assets/images/logo.svg";
 import ToastAlert from "../../../../components/ToastAlert";
 import "../../index.css";
 
 export const Notes = (props) => {
+  const {
+    selectedContact,
+    handleNewNote,
+    handleUpdateProperty,
+    handleDeleteProperty,
+  } = useContext(ContactContext);
+
   const [notes, setNotes] = useState([]);
   const [noteContent, setNoteContent] = useState("");
   const [updateNoteContent, setUpdateNoteContent] = useState("");
@@ -44,19 +52,19 @@ export const Notes = (props) => {
   };
 
   useEffect(() => {
-    const notes = props.selectedContact.notes;
+    const notes = selectedContact.notes;
     setNotes(notes);
-  }, [props.selectedContact]);
+  }, [selectedContact]);
 
   const handleAddNote = (e) => {
     if (e.key === "Enter") {
-      const contact_id = props.selectedContact.id;
-      const address_book_id = props.selectedContact.address_book_id;
+      const contact_id = selectedContact.id;
+      const address_book_id = selectedContact.address_book_id;
       const newNote = {
         note: e.target.value,
       };
 
-      props.handleNewNote(address_book_id, contact_id, "notes", newNote);
+      handleNewNote(address_book_id, contact_id, "notes", newNote);
       setNoteContent("");
     }
   };
@@ -67,13 +75,13 @@ export const Notes = (props) => {
     }
   };
   const handleUpdateNote = () => {
-    const contact_id = props.selectedContact.id;
-    const address_book_id = props.selectedContact.address_book_id;
+    const contact_id = selectedContact.id;
+    const address_book_id = selectedContact.address_book_id;
     const newNote = {
       note: updateNoteContent,
     };
 
-    props.handleUpdateProperty(
+    handleUpdateProperty(
       address_book_id,
       contact_id,
       editNoteId,
@@ -85,13 +93,13 @@ export const Notes = (props) => {
   };
 
   const handleRemoveNote = (noteId) => {
-    const contact_id = props.selectedContact.id;
-    const address_book_id = props.selectedContact.address_book_id;
-    props.handleDeleteProperty(address_book_id, contact_id, "notes", noteId);
+    const contact_id = selectedContact.id;
+    const address_book_id = selectedContact.address_book_id;
+    handleDeleteProperty(address_book_id, contact_id, "notes", noteId);
   };
 
   useEffect(() => {
-    setNotes(props.selectedContact.notes);
+    setNotes(selectedContact.notes);
   });
 
   const toastCopyAlert = () => {

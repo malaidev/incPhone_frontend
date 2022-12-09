@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import Input from "react-phone-number-input/input";
 import "react-phone-number-input/style.css";
 import OutsideClickHandler from "react-outside-click-handler";
 
+import { ContactContext } from "../pages/Contact";
+
 const PhoneNumber = (props) => {
+  const { selectedContact, handleUpdateProperty, handleDeleteProperty } =
+    useContext(ContactContext);
+
   const {
     handleSubmit,
     formState: { errors },
@@ -17,9 +22,9 @@ const PhoneNumber = (props) => {
     const updateValue = {
       phone_number: data["phone-input"],
     };
-    props.handleUpdateProperty(
-      props.selectedContact.address_book_id,
-      props.selectedContact.id,
+    handleUpdateProperty(
+      selectedContact.address_book_id,
+      selectedContact.id,
       props.subItem.id,
       "phones",
       updateValue

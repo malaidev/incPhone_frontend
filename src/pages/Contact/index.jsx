@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
 
 import { ProfileSideBar } from "./Components/ProfileSideBar";
@@ -7,6 +7,8 @@ import { NewContactSideBar } from "./Components/NewContactSideBar";
 import { Avatars } from "../../assets";
 import "./index.css";
 
+export const ContactContext = createContext();
+
 export const Contact = () => {
   const [contacts, setContacts] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState();
@@ -14,10 +16,8 @@ export const Contact = () => {
 
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [selectedContactIds, setSelectedContactIds] = useState([]);
-  const [filterStatus, setFilterStatus] = useState(true);
   const [allSearchDatas, setAllSearchDatas] = useState([]);
   const [newContactStatus, setNewContactStatus] = useState(false);
-  // const [isNewContactCreated, setIsNewContactCreated] = useState(false);
 
   const getContactData = (isNewContactCreated) => {
     axios
@@ -233,40 +233,45 @@ export const Contact = () => {
   };
 
   return (
-    <div className="w-full min-h-full grid grid-cols-3">
-      <ContactLists
-        contacts={contacts}
-        selectedIndex={selectedIndex}
-        isCheckAll={isCheckAll}
-        selectedContactIds={selectedContactIds}
-        allSearchDatas={allSearchDatas}
-        newContactStatus={newContactStatus}
-        setFilterStatus={setFilterStatus}
-        handleAllChecked={handleAllChecked}
-        handleCheckedContact={handleCheckedContact}
-        handleNewContact={handleNewContact}
-      />
+    <ContactContext.Provider
+      value={{
+        contacts,
+        isCheckAll,
+        selectedIndex,
+        selectedContact,
+        selectedContactIds,
+        allSearchDatas,
+        newContactStatus,
+        handleAllChecked,
+        handleCheckedContact,
+        handleNewContact,
+        handleSaveNewContact,
+        handleUpdateContacts,
+        handleAddProperty,
+        handleUpdateProperty,
+        handleDeleteProperty,
+        handleNewNote,
+      }}
+    >
+      <div className="w-full min-h-full grid grid-cols-3">
+        <ContactLists />
 
-      {newContactStatus ? (
-        <NewContactSideBar
-          contacts={contacts}
-          handleSaveNewContact={handleSaveNewContact}
-        />
-      ) : contacts[selectedIndex] == null ? (
-        <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
-          <img alt="Avatar" src={Avatars.PersonCircle} width="32" height="32" />
-          <span className="text-darkGrayText">No contact selected</span>
-        </div>
-      ) : (
-        <ProfileSideBar
-          selectedContact={selectedContact}
-          handleUpdateContacts={handleUpdateContacts}
-          handleAddProperty={handleAddProperty}
-          handleNewNote={handleNewNote}
-          handleUpdateProperty={handleUpdateProperty}
-          handleDeleteProperty={handleDeleteProperty}
-        />
-      )}
-    </div>
+        {newContactStatus ? (
+          <NewContactSideBar />
+        ) : contacts[selectedIndex] == null ? (
+          <div className="flex flex-col items-center justify-center col-span-1 text-black dark:text-white">
+            <img
+              alt="Avatar"
+              src={Avatars.PersonCircle}
+              width="32"
+              height="32"
+            />
+            <span className="text-darkGrayText">No contact selected</span>
+          </div>
+        ) : (
+          <ProfileSideBar />
+        )}
+      </div>
+    </ContactContext.Provider>
   );
 };

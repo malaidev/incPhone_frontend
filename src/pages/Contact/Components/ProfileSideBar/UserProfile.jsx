@@ -1,32 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import { Avatars } from "../../../../assets";
 import { BiPhoneCall, BiMessageAltDetail, BiMailSend } from "react-icons/bi";
-import { FiMoreHorizontal } from "react-icons/fi";
 
+import { ContactContext } from "../..";
+import { FiMoreHorizontal } from "react-icons/fi";
+import { Avatars } from "../../../../assets";
 import "../../index.css";
 
 export const UserProfile = (props) => {
+  const { selectedContact } = useContext(ContactContext);
+  const { selectedIndex, handleDivBlur, handleKeyDown } = props;
   return (
     <div>
       <div className="flex flex-col px-[24px] pt-[40px]">
         <span className="flex justify-center relative">
           <img alt="Avatar" src={Avatars.Default} width="80" height="80" />
           <span className="text-white absolute top-1/4 text-3xl font-bold">
-            {props.selectedContact.initials}
+            {selectedContact.initials}
           </span>
         </span>
 
         <div>
-          {props.selectedIndex == true ? (
+          {selectedIndex == true ? (
             <OutsideClickHandler
               onOutsideClick={() => {
-                props.handleDivBlur();
+                handleDivBlur();
               }}
             >
               <div
                 className="style-editName style-darkShadow"
-                onBlur={props.handleDivBlur}
+                onBlur={handleDivBlur}
               >
                 <label className="text-darkGrayText text-[13px] font-[450]">
                   First name
@@ -36,8 +39,8 @@ export const UserProfile = (props) => {
                   name="first_name"
                   className="text-black dark:text-white style-editNameInput "
                   placeholder="Add a first name..."
-                  defaultValue={props.selectedContact.first_name}
-                  onKeyDown={props.handleKeyDown}
+                  defaultValue={selectedContact.first_name}
+                  onKeyDown={handleKeyDown}
                 />
                 <label className="text-darkGrayText text-[13px] font-[450]">
                   Last name
@@ -47,8 +50,8 @@ export const UserProfile = (props) => {
                   name="last_name"
                   className="text-black dark:text-white style-editNameInput"
                   placeholder="Add a last name..."
-                  defaultValue={props.selectedContact.last_name}
-                  onKeyDown={props.handleKeyDown}
+                  defaultValue={selectedContact.last_name}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
             </OutsideClickHandler>
@@ -59,9 +62,7 @@ export const UserProfile = (props) => {
                 props.setSelectedIndex(true);
               }}
             >
-              {props.selectedContact.first_name +
-                " " +
-                props.selectedContact.last_name}
+              {selectedContact.first_name + " " + selectedContact.last_name}
             </div>
           )}
         </div>

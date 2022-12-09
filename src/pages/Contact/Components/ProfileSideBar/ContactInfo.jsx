@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 
+import { ContactContext } from "../..";
 import { Avatars } from "../../../../assets";
 import PropertyField from "../../../../components/PropertyField";
 import "../../index.css";
@@ -16,12 +17,14 @@ export const ContactInfo = (props) => {
     "dates",
   ];
 
+  const { selectedContact, handleAddProperty } = useContext(ContactContext);
+
   const [sortFieldsArray, setSortFieldsArray] = useState([]);
   const [toogleProperty, setToogleProperty] = useState(false);
 
   useEffect(() => {
     const tempSortFieldsArray = [];
-    const contact = props.selectedContact;
+    const contact = selectedContact;
 
     fieldsOrder.map((item, key) => {
       const itemArray = [item, contact[item]];
@@ -29,19 +32,18 @@ export const ContactInfo = (props) => {
     });
 
     setSortFieldsArray(tempSortFieldsArray);
-  }, [props.selectedContact]);
+  }, [selectedContact]);
 
   const handleNewProperty = (selectedProperty) => {
-    // const selectedProperty = e.target.value;
     const propertyIndex = fieldsOrder.indexOf(selectedProperty);
     let temp = [...sortFieldsArray];
     temp[propertyIndex][1].push([""]);
     setSortFieldsArray(temp);
 
     console.log("SELECTedNewProperty", selectedProperty, sortFieldsArray);
-    props.handleAddProperty(
-      props.selectedContact.address_book_id,
-      props.selectedContact.id,
+    handleAddProperty(
+      selectedContact.address_book_id,
+      selectedContact.id,
       selectedProperty
     );
     setProperty();
@@ -55,15 +57,7 @@ export const ContactInfo = (props) => {
     <div>
       <div className="flex flex-col pt-6 pl-5 pr-1">
         {sortFieldsArray.map((item, key) => {
-          return (
-            <PropertyField
-              item={item}
-              key={key}
-              selectedContact={props.selectedContact}
-              handleUpdateProperty={props.handleUpdateProperty}
-              handleDeleteProperty={props.handleDeleteProperty}
-            />
-          );
+          return <PropertyField item={item} key={key} />;
         })}
 
         <div className="relative hover:bg-[#e5e7eb] dark:hover:bg-[#231d36] py-[4px] px-[11px] mt-[10px] transition-all duration-500 rounded-md w-[max-content]">

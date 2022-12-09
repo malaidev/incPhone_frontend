@@ -1,35 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { Header } from "./Header";
 
+import { ContactContext } from "../..";
 import { Avatars } from "../../../../assets";
-
+import { Header } from "./Header";
 import "../../index.css";
 
 export const ContactLists = (props) => {
   const {
-    contacts,
     selectedIndex,
     isCheckAll,
     selectedContactIds,
     allSearchDatas,
     newContactStatus,
-    setFilterStatus,
     handleAllChecked,
     handleCheckedContact,
     handleNewContact,
-  } = props;
+  } = useContext(ContactContext);
 
   const [query, setQuery] = useState("");
 
   return (
     <div className="col-span-2 border-r border-gray-300 dark:border-gray-600 custom">
-      <Header
-        name="Contacts"
-        selectedContactIds={selectedContactIds}
-        handleNewContact={handleNewContact}
-      />
+      <Header name="Contacts" />
       <div className="flex flex-col mx-2">
         <div className="my-2 flex items-center p-1 text-base cursor-pointer mt-1 false">
           <input
@@ -98,7 +92,6 @@ export const ContactLists = (props) => {
         {allSearchDatas
           .filter((contact) => {
             if (query === "") {
-              //   setFilterStatus(true);
               return contact;
             } else {
               const first_name_Index = contact.first_name
@@ -111,10 +104,8 @@ export const ContactLists = (props) => {
               //   .toLowerCase()
               //   .includes(query.toLowerCase());
               if (first_name_Index || last_name_Index) {
-                // setFilterStatus(true);
                 return contact;
               }
-              //   setFilterStatus(false);
               return;
             }
           })

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import { ContactContext } from "../pages/Contact";
 import { Avatars } from "../assets";
 import ToastAlert from "./ToastAlert";
 import PhoneNumber from "./PhoneNumber";
+
 const propertiesOrderObject = {
   business_name: null,
   role: null,
@@ -18,6 +20,9 @@ const propertiesOrderObject = {
 };
 
 const Property = (props) => {
+  const { selectedContact, handleUpdateProperty, handleDeleteProperty } =
+    useContext(ContactContext);
+
   const [toastStatus, setToast] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [editTitleId, setEditTitleId] = useState();
@@ -31,13 +36,11 @@ const Property = (props) => {
     ? props.subItem[propertiesOrderObject[propertyName]]
     : propertyValue;
 
-  const titleId = propertyValueType
-    ? props.subItem.id
-    : props.selectedContact.id;
+  const titleId = propertyValueType ? props.subItem.id : selectedContact.id;
 
   const unClickedPropertyId = propertyValueType
     ? propertyName + props.subItem.id
-    : propertyName + props.selectedContact.id;
+    : propertyName + selectedContact.id;
 
   const uniqueKey = Math.floor(Math.random() * 100);
 
@@ -54,9 +57,9 @@ const Property = (props) => {
     const updateValue = {
       title: newTitle,
     };
-    props.handleUpdateProperty(
-      props.selectedContact.address_book_id,
-      props.selectedContact.id,
+    handleUpdateProperty(
+      selectedContact.address_book_id,
+      selectedContact.id,
       props.subItem.id,
       propertyName,
       updateValue
@@ -66,8 +69,8 @@ const Property = (props) => {
 
   const handleUpdate = (e, valueType, subItem, objectKey) => {
     if (e.key === "Enter") {
-      const contact_id = props.selectedContact.id;
-      const address_book_id = props.selectedContact.address_book_id;
+      const contact_id = selectedContact.id;
+      const address_book_id = selectedContact.address_book_id;
       const propertyValue = e.target.value;
       const propertyField = e.target.name;
       if (valueType === true) {
@@ -75,7 +78,7 @@ const Property = (props) => {
         const updateValue = {
           [objectKey]: propertyValue,
         };
-        props.handleUpdateProperty(
+        handleUpdateProperty(
           address_book_id,
           contact_id,
           propertyId,
@@ -86,7 +89,7 @@ const Property = (props) => {
         const updateValue = {
           [propertyField]: propertyValue,
         };
-        props.handleUpdateProperty(
+        handleUpdateProperty(
           address_book_id,
           contact_id,
           null,
@@ -99,14 +102,14 @@ const Property = (props) => {
 
   const handleUpdateDate = (date, subItem) => {
     setDate(date);
-    const contact_id = props.selectedContact.id;
-    const address_book_id = props.selectedContact.address_book_id;
+    const contact_id = selectedContact.id;
+    const address_book_id = selectedContact.address_book_id;
     const propertyId = subItem.id;
     const propertyField = "dates";
     const updateValue = {
       date: date,
     };
-    props.handleUpdateProperty(
+    handleUpdateProperty(
       address_book_id,
       contact_id,
       propertyId,
@@ -251,8 +254,6 @@ const Property = (props) => {
                   <div className="rounded-lg border border-solid border-[#4b5563] bg-[#cdcdcd] dark:bg-[#21212f] w-[100%]">
                     <PhoneNumber
                       subItem={props.subItem}
-                      selectedContact={props.selectedContact}
-                      handleUpdateProperty={props.handleUpdateProperty}
                       setClickedPropertyId={setClickedPropertyId}
                     />
                   </div>
@@ -324,7 +325,7 @@ const Property = (props) => {
               handleEditPropertyValue(
                 propertyValueType
                   ? propertyName + props.subItem.id
-                  : propertyName + props.selectedContact.id
+                  : propertyName + selectedContact.id
               )
             }
           >
@@ -460,25 +461,12 @@ const PropertyField = (props) => {
     return ItemValue.map((subItem, key) => {
       return (
         <div key={key}>
-          <Property
-            item={props.item}
-            subItem={subItem}
-            selectedContact={props.selectedContact}
-            handleUpdateProperty={props.handleUpdateProperty}
-            handleDeleteProperty={props.handleDeleteProperty}
-          />
+          <Property item={props.item} subItem={subItem} />
         </div>
       );
     });
   } else {
-    return (
-      <Property
-        item={props.item}
-        selectedContact={props.selectedContact}
-        handleUpdateProperty={props.handleUpdateProperty}
-        handleDeleteProperty={props.handleDeleteProperty}
-      />
-    );
+    return <Property item={props.item} />;
   }
 };
 
