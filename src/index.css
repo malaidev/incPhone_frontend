@@ -23,6 +23,12 @@
     .contactPropertyDiv {
         @apply cursor-pointer px-[10px] min-h-[30px] transition-all duration-500 rounded-md text-[15px];
     }
+    .ppbutton {
+        @apply w-[30px] h-[30px] text-[24px] cursor-pointer text-[#00db72] rounded-lg p-1 transition-all duration-500;
+    }
+    .dppbutton {
+        @apply w-[30px] h-[30px] text-[24px] cursor-pointer text-[#00db72] rounded-lg p-1 transition-all duration-500;
+    }
 }
 
 input:-webkit-autofill,

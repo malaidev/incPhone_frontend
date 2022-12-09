@@ -26,7 +26,6 @@ export const Contact = () => {
       )
       .then((res) => {
         setContacts(res.data);
-        console.log("@@@@", res.data);
 
         let tempDatas = [];
         res.data.map((item) => {
@@ -117,10 +116,6 @@ export const Contact = () => {
       )
       .then((res) => {
         getContactData(true);
-
-        // const createdNewContactId = res.data.id;
-        // setIsNewContactCreated(true);
-        // console.log("createdNewContact", res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -187,7 +182,6 @@ export const Contact = () => {
     axios
       .put(apiUrl, propertyValue)
       .then((res) => {
-        console.log("!!!!!!!!!!!", res.data);
         getContactData();
       })
       .catch((err) => {
@@ -201,17 +195,6 @@ export const Contact = () => {
     propertyField,
     propertyId
   ) => {
-    console.log(
-      "$$$$$$$$$$",
-      "https://addressbook.services.incphone.com/api/addressbooks/" +
-        address_book_id +
-        "/contacts/" +
-        contact_id +
-        "/" +
-        propertyField +
-        "/" +
-        propertyId
-    );
     axios
       .delete(
         "https://addressbook.services.incphone.com/api/addressbooks/" +
@@ -224,7 +207,6 @@ export const Contact = () => {
           propertyId
       )
       .then((res) => {
-        console.log("!!!!!!!!!!!", res.data);
         getContactData();
       })
       .catch((err) => {
