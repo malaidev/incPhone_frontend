@@ -8,7 +8,7 @@ import { Avatars } from "../../../../assets";
 
 export const Header = (props) => {
   return (
-    <div className="flex min-h-[60px]">
+    <div className="flex !min-h-[60px]">
       <div className="flex flex-wrap justify-evenly items-center w-2/3">
         <TooltipButton
           variant="filled"
