@@ -30,13 +30,22 @@ module.exports = {
                 veryDarkBlue: "hsl(233, 12%, 13%)",
 
                 /////////////////////HP//////////////////////
+
+                ////////////////////Background Color////////
                 darkBack: '#1a1925',
                 darkSidebarBack: '#1d1d2a',
+
+                ////////////////////Color////////
                 darkGrayText: '#9797B2',
-                cgray: '#f3f3f5',
+                cgray: '#e4e4e4',
+                // cgray: '#f3f3f5',
                 hoverGray: '#e9e9ed',
                 darkGray: '#252434',
                 darkHoverGray: '#2d2d40',
+
+                ////////////////////Border Color//////////////
+                bc1: '#ecebeb', //borderColor
+                dbc1: '#262631', //darkBorderColor
             },
         },
     },
