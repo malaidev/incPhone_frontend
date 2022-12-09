@@ -37,6 +37,7 @@ module.exports = {
 
                 ////////////////////Color////////
                 darkGrayText: '#9797B2',
+
                 cgray: '#e4e4e4',
                 // cgray: '#f3f3f5',
                 hoverGray: '#e9e9ed',

@@ -9,9 +9,13 @@ const IconTooltipButton = (props) => {
       content={
         <>
           {tooltipContent}&nbsp;&nbsp;
-          <span className="w-[15px] h-[15px] text-[10px] text-black text-center leading-none bg-cgray px-[3px]">
-            {shortContent}
-          </span>
+          {shortContent ? (
+            <span className="w-[15px] h-[15px] text-[10px] text-black text-center leading-none bg-cgray px-[3px]">
+              {shortContent}
+            </span>
+          ) : (
+            ""
+          )}
         </>
       }
       placement={placement}
