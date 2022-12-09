@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ThemeToggle from "../../../../components/ThemeToggle";
+import { ContactContext } from "../..";
 
 export const Header = (props) => {
-  const { name, selectedContactIds, handleNewContact } = props;
+  const { selectedContactIds, handleNewContact } = useContext(ContactContext);
+
+  const { name } = props;
   const handleDeleteContacts = () => {
     console.log("####", selectedContactIds);
   };

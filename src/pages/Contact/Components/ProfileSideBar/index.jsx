@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+
+import { ContactContext } from "../..";
 import { UserProfile } from "./UserProfile";
 import { ContactInfo } from "./ContactInfo";
 import { Notes } from "./Notes";
@@ -6,16 +8,14 @@ import { Notes } from "./Notes";
 import "../../index.css";
 
 export const ProfileSideBar = (props) => {
+  const { selectedContact, handleUpdateContacts } = useContext(ContactContext);
+
   const [selectedIndex, setSelectedIndex] = useState(false);
   const bottomRef = useRef(null);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      props.handleUpdateContacts(
-        e.target.name,
-        e.target.value,
-        props.selectedContact.id
-      );
+      handleUpdateContacts(e.target.name, e.target.value, selectedContact.id);
       handleDivBlur();
     }
   };
@@ -34,29 +34,18 @@ export const ProfileSideBar = (props) => {
 
   return (
     <div className="col-span-1 text-black dark:text-white h-screen overflow-y-scroll overflow-x-hidden section">
-      {props.selectedContact !== undefined && (
+      {selectedContact !== undefined && (
         <div>
           <UserProfile
-            selectedContact={props.selectedContact}
             selectedIndex={selectedIndex}
             handleKeyDown={handleKeyDown}
             handleDivBlur={handleDivBlur}
             setSelectedIndex={setSelectedIndex}
           />
 
-          <ContactInfo
-            selectedContact={props.selectedContact}
-            handleUpdateProperty={props.handleUpdateProperty}
-            handleAddProperty={props.handleAddProperty}
-            handleDeleteProperty={props.handleDeleteProperty}
-          />
+          <ContactInfo />
 
-          <Notes
-            selectedContact={props.selectedContact}
-            handleNewNote={props.handleNewNote}
-            handleUpdateProperty={props.handleUpdateProperty}
-            handleDeleteProperty={props.handleDeleteProperty}
-          />
+          <Notes />
         </div>
       )}
       <div ref={bottomRef} />

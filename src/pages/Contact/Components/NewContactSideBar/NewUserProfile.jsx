@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { BiPhoneCall, BiMessageAltDetail, BiMailSend } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { CgProfile } from "react-icons/cg";
 
+import { ContactContext } from "../..";
 import { Avatars } from "../../../../assets";
 import "../../index.css";
 
 export const NewUserProfile = (props) => {
-  const {
-    contacts,
-    AddNewNameToogle,
-    setAddNewNameToogle,
-    handleSaveNewContact,
-  } = props;
+  const { contacts, handleSaveNewContact } = useContext(ContactContext);
+  const { AddNewNameToogle, setAddNewNameToogle } = props;
+
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
 
