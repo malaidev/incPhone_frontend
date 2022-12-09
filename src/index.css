@@ -23,11 +23,21 @@
     .contactPropertyDiv {
         @apply cursor-pointer px-[10px] min-h-[30px] transition-all duration-500 rounded-md text-[15px];
     }
+    /* primary phone call button */
     .ppbutton {
         @apply w-[30px] h-[30px] text-[24px] cursor-pointer text-[#00db72] rounded-lg p-1 transition-all duration-500;
     }
+    /* dark primary phone call button */
     .dppbutton {
         @apply w-[30px] h-[30px] text-[24px] cursor-pointer text-[#00db72] rounded-lg p-1 transition-all duration-500;
+    }
+    /* primary message phone call button */
+    .pmpbutton {
+        @apply w-[30px] h-[30px] text-[24px] cursor-pointer text-darkGrayText rounded-lg p-1 transition-all duration-500;
+    }
+    /* dark primary message phone call button */
+    .dpmpbutton {
+        @apply w-[30px] h-[30px] text-[24px] cursor-pointer text-darkGrayText rounded-lg p-1 transition-all duration-500;
     }
 }
 
